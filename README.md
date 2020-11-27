@@ -1,4 +1,4 @@
-# walk-with-me
+# MYNDEX
 
 ## HEADLINE
 "Myndex" is an online application that allows to create their own custom stock indeces and view their performance.
@@ -12,22 +12,19 @@ Myndex uses MongoDB, Express, React and Node.js to give users the clarity in sec
 
 
 ## WIRE FRAMES
-- **Landing page** 
-![LandingPage](./public/images/wireframes/wogdalker_landing_1.png)
-- **Login page** 
-![LoginPage](./public/images/wireframes/wogdalker_login_1.png)
+- **Home Page** 
+![HomePage](./public/images/wireframes/wireframe-homepage.svg)
+- **Dashboard** 
+![Dashboard](./public/images/wireframes/wireframe-dashboard.svg)
 - **Signup page** 
-![SignupPage](./public/images/wireframes/wogdalker_signup_1.png)
-- **Dog index page** 
-![AllDogsPage](./public/images/wireframes/wogdalker_dogindex_1.png)
-- **User index page** 
-![AllUsersPage](./public/images/wireframes/wogdalker_userindex_1.png)
-- **User page** 
-![UserPage](./public/images/wireframes/wogdalker_userpage_1.png)
-- **Dog page** 
-![DogPage](./public/images/wireframes/wogdalker_dogpage_1.png)
-- **Booking page** 
-![BookingPage](./public/images/wireframes/wogdalker_bookingpage_1.png)
+![SignupPage](./public/images/wireframes/wireframe-signup.svg)
+- **Create Index Page** 
+![CreateIndexPage](./public/images/wireframes/wireframe-create-index.svg)
+- **Edit Index Page** 
+![EditIndexPage](./public/images/wireframes/wireframe-edit-index.svg)
+- **Show Index Page** 
+![ShowIndexPage](./public/images/wireframes/wireframe-show-index.svg)
+
 
 ## User Stories
 - Upon arriving onsite, viewers will be presented with the Myndex home page featuring options to sign up or login.
