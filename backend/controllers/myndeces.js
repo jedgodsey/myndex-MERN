@@ -44,19 +44,19 @@ const create = (req, res) => {
 //     })
 // };
 
-// const destroy = (req, res) => {
-//   db.Game.findByIdAndDelete(req.params.id)
-//     .then(deletedGame => res.json({game: deletedGame}))
-//     .catch(err => {
-//       console.log('deletegame error: ', err)
-//       res.json({Error: 'unable to delete data'})
-//     })
-// };
+const destroy = (req, res) => {
+  db.Myndex.findByIdAndDelete(req.params.id)
+    .then(deletedMyndex => res.json({index: deletedMyndex}))
+    .catch(err => {
+      console.log('deletegame error: ', err)
+      res.json({Error: 'unable to delete data'})
+    })
+};
 
 module.exports = {
   display,
   show,
   create,
   // update,
-  // destroy,
+  destroy,
 };

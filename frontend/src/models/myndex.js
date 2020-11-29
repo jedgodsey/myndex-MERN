@@ -20,7 +20,6 @@ class MyndexModel {
   }
 
   static create(newMyndex) {
-    console.log(newMyndex)
     return fetch(url, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
