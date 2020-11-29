@@ -5,4 +5,6 @@ const myndexSchema = new mongoose.Schema({
   holdings: Array
 }, {timestaps: true})
 
-module.exports = mongoose.model('Myndex', myndexSchema);
+const Index = mongoose.model('Index', myndexSchema);
+
+module.exports = Index;

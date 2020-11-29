@@ -1,6 +1,6 @@
 import React from 'react';
 import Tradier from '../models/tradier';
-import Myndex from '../models/Myndex';
+import MyndexModel from '../models/myndex';
 import ListItem from '../components/ListItem';
 
 class Crud extends React.Component {
@@ -31,15 +31,16 @@ class Crud extends React.Component {
   }
 
   fillList = () => {
-    return this.state.list && this.state.query ? this.state.list.map(item => <ListItem stock={item} pickTicker={this.pickTicker} />) : null
+    return this.state.list && this.state.query ? this.state.list.map((item, index) => <ListItem stock={item} pickTicker={this.pickTicker} />) : null
   }
 
   pickTicker = (ticker) => {
     this.setState({query: ticker})
   }
 
-  newIndex = () => {
-    Myndex.create(this.state)
+  newIndex = (event) => {
+    event.preventDefault();
+    MyndexModel.create({holdings: this.state.selections})
   }
 
   render() {
