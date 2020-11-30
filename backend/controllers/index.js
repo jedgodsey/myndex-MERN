@@ -1,4 +1,4 @@
 module.exports = {
   myndeces: require("./myndeces"),
-  // profiles: require("./profiles")
+  users: require("./users")
 };

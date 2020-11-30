@@ -17,8 +17,7 @@ class Dashboard extends React.Component {
     return(
       <>
         <h1>Dashboard.js</h1>
-        {this.state.indeces.map(item => <IndexCard index={item} />)}
-        
+        {this.state.indeces && this.state.indeces.map(item => <IndexCard index={item} />)}
       </>
     )
   }

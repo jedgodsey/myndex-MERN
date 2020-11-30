@@ -16,6 +16,7 @@ app.use(cors(corsOptions));
 
 // middleware - API routes
 app.use("/myndeces", routes.myndeces);
+app.use("/users", routes.users);
 
 // connection
 app.listen(port, () => console.log(`Server is running on port ${port}`));

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import GoogleLogin from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Button, Heading } from 'grommet';
 import { Notification } from 'grommet-icons';
 import AppBar from './components/AppBar';
@@ -9,6 +9,7 @@ import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
 import EditIndex from './pages/EditIndex';
 import TestIndex from './pages/TestIndex';
+import UserModel from './models/user';
 
 const theme = {
   global: {
@@ -24,10 +25,20 @@ const theme = {
 };
 
 class App extends React.Component {
+  state = {
+    isLoggedIn: false
+  }
+  
   responseGoogle = (response) => {
     console.log(response)
     console.log(response.profileObj);
+    UserModel.create(response.profileObj);
   }
+
+  logout = () => {
+    this.setState( { isLoggedIn: false } ) 
+  }
+
   render() {
     return (
       <>
@@ -39,6 +50,11 @@ class App extends React.Component {
               onSuccess={this.responseGoogle}
               onFailure={this.responseGoogle}
               cookiePolicy={'single_host_origin'}
+            />
+            <GoogleLogout
+              clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
+              buttonText='Logout'
+              onLogoutSuccess={this.logout}
             />
             <Heading level='3' margin='none'>MyNdex</Heading>
             <Button icon={<Notification />} onClick={() => {}} />
