@@ -1,5 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 import { Grommet, Button, Heading } from 'grommet';
 import { Notification } from 'grommet-icons';
 import AppBar from './components/AppBar';
@@ -22,22 +23,37 @@ const theme = {
   },
 };
 
-function App() {
-  return (
-    <Grommet theme={theme}>
-      <AppBar>
-        <Heading level='3' margin='none'>MyNdex</Heading>
-        <Button icon={<Notification />} onClick={() => {}} />
-      </AppBar>
-      <Switch>
-        <Route path='/add' component={AddIndex} />
-        <Route path='/dashboard' component={Dashboard} />
-        <Route path='/test' component={TestIndex} />
-        <Route path='/myndeces/:id/edit' component={EditIndex} />
-        <Route path='/' component={Home} />
-      </Switch>
-    </Grommet>
-  );
+class App extends React.Component {
+  responseGoogle = (response) => {
+    console.log(response)
+    console.log(response.profileObj);
+  }
+  render() {
+    return (
+      <>
+        <Grommet theme={theme}>
+          <AppBar>
+            <GoogleLogin
+              clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
+              buttonText='Login'
+              onSuccess={this.responseGoogle}
+              onFailure={this.responseGoogle}
+              cookiePolicy={'single_host_origin'}
+            />
+            <Heading level='3' margin='none'>MyNdex</Heading>
+            <Button icon={<Notification />} onClick={() => {}} />
+          </AppBar>
+          <Switch>
+            <Route path='/add' component={AddIndex} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/test' component={TestIndex} />
+            <Route path='/myndeces/:id/edit' component={EditIndex} />
+            <Route path='/' component={Home} />
+          </Switch>
+        </Grommet>
+      </>
+    );
+  }
 }
 
 export default App;
