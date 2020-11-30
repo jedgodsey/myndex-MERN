@@ -6,7 +6,7 @@ const ctrl = require("../controllers");
 router.get("/", ctrl.myndeces.display);
 router.get("/:id", ctrl.myndeces.show);
 router.post("/", ctrl.myndeces.create);
-// router.put("/:id", ctrl.myndeces.update);
+router.put("/:id", ctrl.myndeces.update);
 router.delete("/:id", ctrl.myndeces.destroy);
 
 // exports

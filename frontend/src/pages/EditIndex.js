@@ -3,7 +3,7 @@ import Tradier from '../models/tradier';
 import MyndexModel from '../models/myndex';
 import ListItem from '../components/ListItem';
 
-class Crud extends React.Component {
+class EditIndex extends React.Component {
   state = {
     query: '',
     list: [],
@@ -38,15 +38,18 @@ class Crud extends React.Component {
     this.setState({query: ticker})
   }
 
-  newIndex = (event) => {
+  updateIndex = (event) => {
     event.preventDefault();
-    MyndexModel.create({holdings: this.state.selections})
+    MyndexModel.update({
+      id: this.props.match.params.id,
+      holdings: this.state.selections
+    })
   }
 
   render() {
     return(
       <>
-        <h1>Crud.js</h1>
+        <h1>EditIndex.js</h1>
         Current Stocks: {this.state.selections.map(item => item + ', ')}
         <form onSubmit={this.submitTicker}>
           <input type='text' onChange={this.handleChange} value={this.state.query} name="ticker" />
@@ -55,13 +58,13 @@ class Crud extends React.Component {
           </ul>
           <input type='submit' value="Add Stock" />
         </form>
-        <form onSubmit={this.newIndex}>
+        <form onSubmit={this.updateIndex}>
           <input type="text" name="name" label="Index Name" />
-          <input type="submit" value="Save Index" />
+          <input type="submit" value="Update Index" />
         </form>
       </>
     )
   }
 }
 
-export default Crud;
+export default EditIndex;

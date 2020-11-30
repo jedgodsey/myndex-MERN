@@ -33,12 +33,12 @@ class MyndexModel {
   }
 
   static update(updatedMyndex) {
-    return fetch(`${url}/${updatedMyndex._id}`, {
+    return fetch(`${url}/${updatedMyndex.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(updatedMyndex)
     })
-      .then(res => console.log(res))
+      .then(res => console.log('this is your res: ', res.json()))
       .catch(err => {
         console.log('error fetching data in MyndexModel.update: ', err)
         return {message: 'error in update'};

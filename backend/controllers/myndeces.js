@@ -35,14 +35,14 @@ const create = (req, res) => {
     })
 };
 
-// const update = (req, res) => {
-//   db.Game.findByIdAndUpdate(req.params.id, req.body, {new: true})
-//     .then(updatedGame => res.json({game: updatedGame}))
-//     .catch(err => {
-//       console.log('updategame error: ', err)
-//       res.json({Error: 'error updating game'})
-//     })
-// };
+const update = (req, res) => {
+  db.Myndex.findByIdAndUpdate(req.params.id, req.body, {new: true})
+    .then(updatedMyndex => res.json({index: updatedMyndex}))
+    .catch(err => {
+      console.log('updatemyndex error: ', err)
+      res.json({Error: 'error updating myndex'})
+    })
+};
 
 const destroy = (req, res) => {
   db.Myndex.findByIdAndDelete(req.params.id)
@@ -57,6 +57,6 @@ module.exports = {
   display,
   show,
   create,
-  // update,
+  update,
   destroy,
 };
