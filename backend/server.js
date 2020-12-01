@@ -10,6 +10,8 @@ const corsOptions = {
   origin: 'http://localhost:3000'
 }
 
+// install body-parser?
+
 // middleware - JSON parsing
 app.use(express.json());
 app.use(cors(corsOptions));
@@ -17,6 +19,7 @@ app.use(cors(corsOptions));
 // middleware - API routes
 app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
+
 
 // connection
 app.listen(port, () => console.log(`Server is running on port ${port}`));

@@ -9,6 +9,7 @@ class IndexCard extends React.Component {
   }
 
   componentDidMount() {
+    console.log(this.props.index.holdings)
     this.pullQuotes(this.props.index.holdings)
   }
 
