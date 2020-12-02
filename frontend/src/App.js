@@ -66,7 +66,6 @@ class App extends React.Component {
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/signup' component={Dashboard} />
             <Route path='/login' component={Dashboard} />
-            <Route path='/test' component={TestAuth} />
             <Route path='/myndeces/:id/edit' component={EditIndex} />
             <Route path='/' component={Home} />
           </Switch>

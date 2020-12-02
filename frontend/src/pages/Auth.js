@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-const TestAuth = () => {
+const Auth = () => {
   const [registerUsername, setRegisterUsername] = useState('')
   const [registerPassword, setRegisterPassword] = useState('')
   const [loginUsername, setLoginUsername] = useState('')
@@ -17,26 +17,26 @@ const TestAuth = () => {
       },
       withCredentials: true,
       url: 'http://localhost:4000/register'
-    }).then(res => console.log(res));
+    })
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
+
   const login = () => {
     axios({
       method: 'POST',
       data: {
-        username: registerUsername,
-        password: registerPassword
+        username: loginUsername,
+        password: loginPassword
       },
       withCredentials: true,
       url: 'http://localhost:4000/login'
-    }).then(res => console.log(res));
+    })
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   };
+
   const getUser = () => {
     axios({
       method: 'GET',
-      data: {
-        username: registerUsername,
-        password: registerPassword
-      },
       withCredentials: true,
       url: 'http://localhost:4000/getUser'
     }).then(res => {
@@ -45,8 +45,16 @@ const TestAuth = () => {
     });
   };
 
+  const logOut = () => {
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: 'http://localhost:4000/logout'
+    }).then(res => console.log('logout response: ', res))
+  }
+
   return (
-    <div className='TestAuth'>
+    <div>
       <div>
         <h1>register</h1>
         <input placeholder='username' onChange={e => setRegisterUsername(e.target.value)} />
@@ -64,8 +72,12 @@ const TestAuth = () => {
         <button onClick={getUser}>Submit</button>
         {data ? <h1>Welcome Back {data.username}!</h1> : null}
       </div>
+      <div>
+        <h1>log out</h1>
+        <button onClick={logOut}>log out</button>
+      </div>
     </div>
   )
 }
 
-export default TestAuth;
+export default Auth;
