@@ -1,5 +1,15 @@
 const db = require("../models");
 
+// -----------from walk-with-me----------
+function isLoggedIn(req, res, next){
+  if(req.isAuthenticated()){
+      return next();
+  }
+  req.flash('error', 'You must sign in first');
+  res.redirect('/login');
+}
+
+
 const show = (req, res) => {
   db.User.findById(req.params.id)
     .then(foundUser => {

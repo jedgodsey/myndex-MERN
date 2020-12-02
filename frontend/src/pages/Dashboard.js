@@ -9,14 +9,14 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     MyndexModel.all().then(data => {
-      console.log('your data: ', data)
       this.setState({indeces: data.indeces})
     })
   }
   render() {
     return(
       <>
-        <h1>Dashboard.js</h1>
+        <h1>Dashboard.js test four</h1>
+        <p>get some</p>
         {this.state.indeces && this.state.indeces.map(item => <IndexCard index={item} />)}
       </>
     )
