@@ -14,7 +14,7 @@ class MyndexModel {
     return fetch(`${url}/${id}`)
       .then(res => res.json())
       .catch(err => {
-        console.log('error fetching data in MyndexModel.all: ', err)
+        console.log('error fetching data in MyndexModel.getOne: ', err)
         return {myndex: {}};
       })
   }

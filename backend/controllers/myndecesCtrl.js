@@ -1,19 +1,10 @@
+const express = require('express')
 const db = require("../models");
 
-// -----------from walk-with-me----------
-function isLoggedIn(req, res, next){
-  if(req.isAuthenticated()){
-      return next();
-  }
-  req.flash('error', 'You must sign in first');
-  res.redirect('/login');
-}
-
-
 const display = (req, res) => {
+  console.log('your req: ', req)
   db.Myndex.find({})
     .then(foundIndeces => {
-      console.log('display res: ', res)
       res.json({indeces: foundIndeces})
     })
     .catch(err => {

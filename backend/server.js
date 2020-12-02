@@ -47,8 +47,17 @@ require('./passportConfig')(passport);
 app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
 
+
+function isLoggedIn(req, res, next){
+  console.log('req.user in server: ', req.isAuthenticated())
+  if(req.isAuthenticated()){
+      return next();
+  }
+}
+
 app.post('/login', (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {
+    console.log(user._id)
     if (err) throw err;
     if (!user) res.send('no user exists');
     else {
@@ -78,6 +87,7 @@ app.post('/register', (req, res) => {
 })
 
 app.get('/getUser', (req, res) => {
+  console.log('req.user: ', req.user)
   res.send(req.user); // the req.user stores the entire user that has been authenticated inside of it.
 })
 

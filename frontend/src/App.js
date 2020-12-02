@@ -4,12 +4,10 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Button, Heading } from 'grommet';
 import { Notification } from 'grommet-icons';
 import AppBar from './components/AppBar';
-import UserAuth from './components/UserAuth';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
 import EditIndex from './pages/EditIndex';
-import TestAuth from './pages/TestAuth';
 import UserModel from './models/user';
 
 const theme = {
@@ -60,7 +58,6 @@ class App extends React.Component {
             <Heading level='3' margin='none'>MyNdex</Heading>
             <Button icon={<Notification />} onClick={() => {}} />
           </AppBar>
-          {/* <UserAuth /> */}
           <Switch>
             <Route path='/add' component={AddIndex} />
             <Route path='/dashboard' component={Dashboard} />
