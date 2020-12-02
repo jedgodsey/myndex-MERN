@@ -1,27 +1,33 @@
 import React from "react";
-import { Box, TextInput, Image, Text } from "grommet";
+import { Box, TextInput, Button, Text } from "grommet";
+import { Search } from 'grommet-icons';
 import Tag from '../components/Tag';
 import Tradier from '../models/tradier';
 import MyndexModel from '../models/myndex';
-import ListItem from '../components/ListItem';
 
 class TestIndex extends React.Component {
   state = {
-    query: '',
+    query: [''],
     list: [],
-    selections: []
+    selections: [],
+    name: ''
   };
 
   //---------------- my functions ------------------
-  handleChange = (event) => {
+  handleStockChange = (event) => {
     this.setState({
-      query: event.target.value
+      query: [event.target.value]
     }, () => {
       Tradier.populate(this.state.query)
         .then(data => {
-          console.log('that data: ', data)
           this.setState({list: data})
         })
+    })
+  }
+
+  handleNameChange = (event) => {
+    this.setState({
+      name: event.target.value
     })
   }
 
@@ -29,47 +35,25 @@ class TestIndex extends React.Component {
     let newTicker = this.state.selections.concat(ticker)
     this.setState({
       selections: newTicker,
-      query: ''
+      query: '',
+      list: []
     })
   }
-  // submitTicker = (event) => {
-  //   event.preventDefault();
-  //   let newTicker = this.state.selections.concat(event.target.ticker.value)
-  //   this.setState({
-  //     selections: newTicker,
-  //     query: ''
-  //   })
-  // }
 
-  fillList = () => {
-    return this.state.list && this.state.query ? this.state.list.map((item, index) => <ListItem stock={item} pickTicker={this.pickTicker} />) : null
-  }
-
-  pickTicker = (ticker) => {
-    this.setState({query: ticker})
-  }
-
-  updateIndex = (event) => {
+  addIndex = (event) => {
     event.preventDefault();
-    MyndexModel.update({
-      id: this.props.match.params.id,
+    MyndexModel.create({
+      indexName: this.state.name,
       holdings: this.state.selections
     })
   }
 
   //------------------grommet functions--------------------
   onRemoveTag = index => {
-    const { tags } = this.state;
-    const newTags = [...tags];
+    const newTags = [...this.state.selections];
     newTags.splice(index, 1);
     this.setState({
-      tags: newTags
-    });
-  };
-  onSelectTag = tag => {
-    const { tags } = this.state;
-    this.setState({
-      tags: [...tags, tag]
+      selections: newTags
     });
   };
 
@@ -86,7 +70,8 @@ class TestIndex extends React.Component {
   };
 
   renderSuggestions = () => {
-    return this.state.list.map((item, index, list) => ({
+    if (this.state.list && this.state.query) {
+      return this.state.list.map((item, index, list) => ({
         label: (
           <Box
             direction="row"
@@ -95,7 +80,6 @@ class TestIndex extends React.Component {
             border={index < list.length - 1 ? 'bottom' : undefined}
             pad="small"
             onClick={() => this.submitTicker(item.symbol)}
-            // onClick={() => {this.submitTicker(item.symbol)}}
           >
             <Text>
               <strong>{`${item.symbol}: ${item.description}`}</strong>
@@ -104,49 +88,40 @@ class TestIndex extends React.Component {
         ),
         value: item,
       }));
+    }
   };
 
-
   render() {
-    const { tags } = this.state;
     return (
-      <Box>
+      <Box margin="large" padding="medium">
+        <strong>Create a New Index</strong>
+        <TextInput
+              // plain={true}
+              placeholder="Enter The Name of Your Index"
+              // type="search"
+              value={this.state.name}
+              onChange={this.handleNameChange}
+              // name="indexName"
+            />
         <Box direction="row" border="all">
           {this.state.selections.length > 0 && this.renderTags(this.state.selections, this.onRemoveTag)}
-          <Box>
+          <Box direction="row">
+            <Search color="brand" />
+            {console.log('your value: ', this.state.query)}
             <TextInput
               plain={true}
               placeholder="Search and Select Companies"
               type="search"
               value={this.state.query}
-              onChange={this.handleChange}
-              name="ticker"
-              // onSelect={({ suggestion }) =>
-              //   this.setState(
-              //     {
-              //       search: ""
-              //     },
-              //     () => this.onSelectTag(suggestion)
-              //   )
-              // }
-              // suggestions={suggestions.filter(item => item.indexOf(search) >= 0)}
+              onChange={this.handleStockChange}
+              // name="ticker"
               suggestions={this.renderSuggestions()}
             />
           </Box>
         </Box>
-        <h1>EditIndex.js</h1>
-        Current Stocks: {this.state.selections.map(item => item + ', ')}
-        {/* <form onSubmit={this.submitTicker}>
-          <input type='text' value={this.state.query} name="ticker" />
-          <ul>
-            {this.fillList()}
-          </ul>
-          <input type='submit' value="Add Stock" />
-        </form> */}
-        <form onSubmit={this.updateIndex}>
-          <input type="text" name="name" label="Index Name" />
-          <input type="submit" value="Update Index" />
-        </form>
+        <Box align="start" pad="medium">
+          <Button label="Create" onClick={this.addIndex} />
+        </Box>
       </Box>
     );
   }
