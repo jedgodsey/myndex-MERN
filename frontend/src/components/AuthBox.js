@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Button, Card, CardHeader, CardFooter, CardBody } from 'grommet';
 
-const Auth = () => {
+const AuthBox = () => {
   const [registerUsername, setRegisterUsername] = useState('')
   const [registerPassword, setRegisterPassword] = useState('')
   const [loginUsername, setLoginUsername] = useState('')
@@ -54,30 +55,34 @@ const Auth = () => {
   }
 
   return (
-    <div>
-      <div>
-        <h1>register</h1>
-        <input placeholder='username' onChange={e => setRegisterUsername(e.target.value)} />
-        <input placeholder='password' onChange={e => setRegisterPassword(e.target.value)} />
-        <button onClick={register}>Submit</button>
-      </div>
-      <div>
-        <h1>login</h1>
-        <input placeholder='username' onChange={e => setLoginUsername(e.target.value)} />
-        <input placeholder='password' onChange={e => setLoginPassword(e.target.value)} />
-        <button onClick={login}>Submit</button>
-      </div>
-      <div>
-        <h1>get user</h1>
-        <button onClick={getUser}>Submit</button>
-        {data ? <h1>Welcome Back {data.username}!</h1> : null}
-      </div>
-      <div>
-        <h1>log out</h1>
-        <button onClick={logOut}>log out</button>
-      </div>
-    </div>
+    <Card  height="small" width="small" background="light-1">
+      <CardHeader pad="medium">Register</CardHeader>
+      <CardBody pad="medium">
+        <div>
+          <input placeholder='username' onChange={e => setRegisterUsername(e.target.value)} />
+          <input placeholder='password' onChange={e => setRegisterPassword(e.target.value)} />
+          <button onClick={register}>Submit</button>
+        </div>
+        <div>
+          <h1>login</h1>
+          <input placeholder='username' onChange={e => setLoginUsername(e.target.value)} />
+          <input placeholder='password' onChange={e => setLoginPassword(e.target.value)} />
+          <button onClick={login}>Submit</button>
+        </div>
+        <div>
+          <h1>get user</h1>
+          <button onClick={getUser}>Submit</button>
+          {data ? <h1>Welcome Back {data.username}!</h1> : null}
+        </div>
+        <div>
+          <h1>log out</h1>
+          <button onClick={logOut}>log out</button>
+        </div>        
+      </CardBody>
+      <CardFooter pad={{horizontal: "small"}} background="light-2">   
+      </CardFooter>
+    </Card>
   )
 }
 
-export default Auth;
+export default AuthBox;

@@ -8,13 +8,11 @@ import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
 import EditIndex from './pages/EditIndex';
+import TestIndex from './pages/TestIndex';
 import UserModel from './models/user';
 
 const theme = {
   global: {
-    colors: {
-      brand: '#228BE6'
-    },
     font: {
       family: 'Roboto',
       size: '18px',
@@ -59,6 +57,7 @@ class App extends React.Component {
             <Button icon={<Notification />} onClick={() => {}} />
           </AppBar>
           <Switch>
+            <Route path='/test' component={TestIndex} />
             <Route path='/add' component={AddIndex} />
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/signup' component={Dashboard} />
