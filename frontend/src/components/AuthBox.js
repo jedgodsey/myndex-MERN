@@ -19,12 +19,12 @@ const AuthBox = () => {
       withCredentials: true,
       url: 'http://localhost:4000/register'
     })
-      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => console.log(res)) // res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
   const login = () => {
     axios({
-      method: 'GET',
+      method: 'POST',
       data: {
         username: loginUsername,
         password: loginPassword
@@ -32,7 +32,7 @@ const AuthBox = () => {
       withCredentials: true,
       url: 'http://localhost:4000/login'
     })
-      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => console.log(res)) // res.status === 200 ? window.location.href = '/dashboard' : null)
   };
 
   const getUser = () => {
@@ -51,14 +51,14 @@ const AuthBox = () => {
       method: 'GET',
       withCredentials: true,
       url: 'http://localhost:4000/logout'
-    }).then(res => window.location.href = '/')
+    }).then(res => console.log(res)) // window.location.href = '/loggedout')
   }
 
   return (
-    <Card height="medium" width="medium" background="light-1" elevation="medium">
+    <Card height="large" width="medium" background="light-1" elevation="medium">
       <CardHeader pad="medium">Register</CardHeader>
       <CardBody pad="medium">
-        <div>
+        <div> {/* className="App" ? */}
           <input placeholder='username' onChange={e => setRegisterUsername(e.target.value)} />
           <input placeholder='password' onChange={e => setRegisterPassword(e.target.value)} />
           <button onClick={register}>Submit</button>

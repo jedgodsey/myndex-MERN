@@ -4,7 +4,7 @@ const ctrl = require("../controllers");
 
 // routes
 // router.get("/:id", ctrl.users.show);
-router.post("/", ctrl.users.verify);
+router.post("/verify", ctrl.users.verify);
 // router.put("/:id", ctrl.users.update);
 // router.delete("/:id", ctrl.users.destroy);
 

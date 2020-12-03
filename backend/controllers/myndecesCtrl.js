@@ -1,9 +1,11 @@
-const express = require('express')
+const express = require('express');
+const passport = require('passport');
 const db = require("../models");
 
-const display = (req, res) => {
-  console.log('your req: ', req.params)
-  db.Myndex.find({})
+const display = (req, res, next) => { // why next?
+  passport.authenticate('local', (err, user, info) => {
+    console.log('display req.user: ', req.user)
+    db.Myndex.find({})
     .then(foundIndeces => {
       res.json({indeces: foundIndeces})
     })
@@ -11,7 +13,20 @@ const display = (req, res) => {
       console.log('myndex index error: ', err)
       res.json({Error: 'unable to get your data'})
     })
-};
+  })(req, res, next) // why (req, res, next) here?
+}
+
+// const display = (req, res) => {
+//   console.log('your req: ', req)
+//   db.Myndex.find({})
+//     .then(foundIndeces => {
+//       res.json({indeces: foundIndeces})
+//     })
+//     .catch(err => {
+//       console.log('myndex index error: ', err)
+//       res.json({Error: 'unable to get your data'})
+//     })
+// };
 
 const show = (req, res) => {
   db.Myndex.findById(req.params.id)
@@ -25,7 +40,7 @@ const show = (req, res) => {
 };
 
 const create = (req, res) => {
-  console.log('create user: ', req.user)
+  console.log('create req.user: ', req.user)
   db.Myndex.create(req.body)
     .then(savedMyndex => {
       console.log(savedMyndex)

@@ -26,7 +26,7 @@ class App extends React.Component {
   responseGoogle = (response) => {
     console.log('response: ', response)
     console.log('profile obj: ', response.profileObj);
-    UserModel.create(response.profileObj);
+    UserModel.verify(response.profileObj);
   }
 
   logout = () => {

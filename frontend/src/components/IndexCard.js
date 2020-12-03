@@ -42,7 +42,6 @@ class IndexCard extends React.Component {
         <CardHeader pad="medium">{this.props.index.indexName}</CardHeader>
         <CardBody pad="medium">
           ID#: {this.props.index._id}
-          {console.log(this.props.index)}
           {/* <p>{this.props.index.holdings}</p> */}
           <p>Today's performance: {this.state.performance}</p>
         </CardBody>

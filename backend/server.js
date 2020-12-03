@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
 const passport = require('passport');
-const LocalStrategy = require('passport-local');
+const passportLocal = require('passport-local').Strategy;
 
 const port = process.env.PORT || 4000; //add ENV?
 const app = express();
@@ -29,46 +29,26 @@ app.use(session({
   }
 }));
 
+app.use(cookieParser(process.env.SECRET))
 app.use(passport.initialize());
 app.use(passport.session());
-passport.use(new LocalStrategy(db.User.authenticate()));
-passport.serializeUser(db.User.serializeUser());
-passport.deserializeUser(db.User.deserializeUser());
-
+require('./passportConfig')(passport);
 
 // middleware - JSON parsing
 app.use(express.json());
 app.use(cors(corsOptions));
 
-app.use(cookieParser(process.env.SECRET))
-require('./passportConfig')(passport);
-
 // middleware - API routes
 app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
 
-
-// function isLoggedIn(req, res, next){
-//   console.log('req.user in server: ', req.isAuthenticated())
-//   if(req.isAuthenticated()){
-//       return next();
-//   }
-// }
-
-app.get('/authorize', (req, res) => {
-  db.User.findOne({sessionID: req.sessionID}, (err, authorizedUser) => {
-    console.log('error: ', err)
-    console.log('user: ', authorizedUser)
-  })
-})
-
-app.get('/login', (req, res, next) => { // why next?
+app.post('/login', (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {
-    console.log('login id: ', user._id)
+    console.log('top user: ', user)
     if (err) throw err;
     if (!user) res.send('no user exists');
     else {
-      req.login(user, err => {
+      req.logIn(user, err => {
         if (err) throw err;
         res.send('successfully authenticated');
       })
@@ -76,26 +56,8 @@ app.get('/login', (req, res, next) => { // why next?
   })(req, res, next) // why (req, res, next) here?
 })
 
-//---------------testing
-
-// app.get("/myndeces", (req, res, next) => {
-//   passport.authenticate('local', (err, user, info) => {
-//     console.log('req.login? ', req.sessionID)
-//     db.Myndex.find({})
-//       .then(foundIndeces => {
-//         res.json({indeces: foundIndeces})
-//       })
-//       .catch(err => {
-//         console.log('myndex index error: ', err)
-//         res.json({Error: 'unable to get your data'})
-//       })
-//   })(req, res, next) // why (req, res, next) here?
-// });
-
-//-------------------
-
 app.post('/register', (req, res) => {
-  console.log('register req.body: ', req.body)
+  console.log('register req.user', req.user)
   db.User.findOne({username: req.body.username}, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send('user already exists');
@@ -112,13 +74,11 @@ app.post('/register', (req, res) => {
 })
 
 app.get('/getUser', (req, res) => {
-  console.log('req.user: ', req.user)
+  console.log('getUser req: ', req)
   res.send(req.user); // the req.user stores the entire user that has been authenticated inside of it.
 })
 
 app.get('/logout', (req, res) => {
-  console.log('logout req: ', req)
-  console.log('logout res: ', res)
   req.logout();
   res.redirect('/')
 })

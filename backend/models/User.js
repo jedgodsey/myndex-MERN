@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
-const passportLocalMongoose = require('passport-local-mongoose');
+// const passportLocalMongoose = require('passport-local-mongoose');
 
 const userSchema = new mongoose.Schema({
+  username: String,
   email: String,
   googleId: String,
   imageUrl: String,
@@ -12,6 +13,6 @@ const userSchema = new mongoose.Schema({
   sessionID: String
 }, {timestaps: true})
 
-userSchema.plugin(passportLocalMongoose);
+// userSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('User', userSchema);

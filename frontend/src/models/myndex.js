@@ -2,7 +2,7 @@ const url = `http://localhost:4000/myndeces`
 
 class MyndexModel {
   static all() {
-    return fetch(url)
+    return fetch(url, {credentials: 'include'})
       .then(res => res.json())
       .catch(err => {
         console.log('error fetching data in MyndexModel.all: ', err)
@@ -11,7 +11,7 @@ class MyndexModel {
   }
 
   static getOne(id) {
-    return fetch(`${url}/${id}`)
+    return fetch(`${url}/${id}`, {credentials: 'include'})
       .then(res => res.json())
       .catch(err => {
         console.log('error fetching data in MyndexModel.getOne: ', err)
@@ -24,6 +24,7 @@ class MyndexModel {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newMyndex),
+      credentials: 'include'
     })
       .then(res => res.json())
       .catch(err => {
@@ -36,7 +37,8 @@ class MyndexModel {
     return fetch(`${url}/${updatedMyndex.id}`, {
       method: 'PUT',
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(updatedMyndex)
+      body: JSON.stringify(updatedMyndex),
+      credentials: 'include'
     })
       .then(res => console.log('this is your res: ', res.json()))
       .catch(err => {
@@ -47,7 +49,8 @@ class MyndexModel {
 
   static delete(id) {
     fetch(`${url}/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      credentials: 'include'
     })
       .then(res => res)
       .catch(err => {

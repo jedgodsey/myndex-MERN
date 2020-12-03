@@ -12,6 +12,19 @@ const db = require("../models");
 //     })
 // };
 
+
+    //test new post
+//     var newMonth = new Entry({date: '1997-10-30', link: 'https://wwww.youtube.com/'});
+//     newMonth.save(function(err) {
+//         if (err !== null) {
+//             res.status(500).json({ error: "save failed", err: err});
+//             return;
+//         } else {
+//             res.status(201).json(newMonth);
+//         };
+//     });
+// });
+
 const verify = (req, res) => {
   req.body.sessionID = req.sessionID
   db.User.findOneAndUpdate({googleID: req.body.googleID}, req.body, (err, foundUser) => {
@@ -22,9 +35,8 @@ const verify = (req, res) => {
         .then(res => console.log('then response: ', res))
         .catch(err => console.log('create user error: ', err))
     }
-  })
-    // .then(res => res.json())
-    .catch(err => console.log('verify user error', err))
+  }).catch(err => console.log('verify user error', err))
+
     // .catch(res => {
     //   console.log('in catch ', res)
     //   db.User.create(req.body)
@@ -37,6 +49,7 @@ const verify = (req, res) => {
     //       res.json({Error: 'unable to create data'})
     //     })
     // })
+  console.log(res.status(200).json())
 };
 
 
