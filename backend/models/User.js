@@ -8,7 +8,8 @@ const userSchema = new mongoose.Schema({
   name: String,
   company: String,
   logo: String,
-  password: String
+  password: String,
+  sessionID: String
 }, {timestaps: true})
 
 userSchema.plugin(passportLocalMongoose);

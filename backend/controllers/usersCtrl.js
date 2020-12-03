@@ -1,6 +1,7 @@
 const db = require("../models");
 
 const show = (req, res) => {
+  console.log('user show params', req.params)
   db.User.findById(req.params.id)
     .then(foundUser => {
       res.json({index: foundUser})

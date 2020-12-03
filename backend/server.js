@@ -44,7 +44,7 @@ app.use(cookieParser(process.env.SECRET))
 require('./passportConfig')(passport);
 
 // middleware - API routes
-app.use("/myndeces", routes.myndeces);
+// app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
 
 
@@ -55,9 +55,9 @@ app.use("/users", routes.users);
 //   }
 // }
 
-app.post('/login', (req, res, next) => { // why next?
+app.get('/login', (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {
-    console.log(user._id)
+    console.log('login id: ', user._id)
     if (err) throw err;
     if (!user) res.send('no user exists');
     else {
@@ -69,8 +69,26 @@ app.post('/login', (req, res, next) => { // why next?
   })(req, res, next) // why (req, res, next) here?
 })
 
+//---------------testing
+
+app.get("/myndeces", (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    console.log('req.login? ', req.sessionID)
+    db.Myndex.find({})
+      .then(foundIndeces => {
+        res.json({indeces: foundIndeces})
+      })
+      .catch(err => {
+        console.log('myndex index error: ', err)
+        res.json({Error: 'unable to get your data'})
+      })
+  })(req, res, next) // why (req, res, next) here?
+});
+
+//-------------------
+
 app.post('/register', (req, res) => {
-  console.log(req.body)
+  console.log('register req.body: ', req.body)
   db.User.findOne({username: req.body.username}, async (err, doc) => {
     if (err) throw err;
     if (doc) res.send('user already exists');
@@ -97,6 +115,24 @@ app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/')
 })
+
+//-------------------testing this out------------------------
+
+// app.get("/myndeces", (req, res) => {
+//   console.log('your req: ', req.user)
+//   console.log('your req: ', req.body)
+//   console.log('your req: ', req.params)
+//   db.Myndex.find({})
+//     .then(foundIndeces => {
+//       res.json({indeces: foundIndeces})
+//     })
+//     .catch(err => {
+//       console.log('myndex index error: ', err)
+//       res.json({Error: 'unable to get your data'})
+//     })
+// });
+
+
 
 // connection
 app.listen(port, () => console.log(`Server is running on port ${port}`));

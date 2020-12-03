@@ -2,7 +2,7 @@ const express = require('express')
 const db = require("../models");
 
 const display = (req, res) => {
-  console.log('your req: ', req)
+  console.log('your req: ', req.params)
   db.Myndex.find({})
     .then(foundIndeces => {
       res.json({indeces: foundIndeces})
@@ -25,6 +25,7 @@ const show = (req, res) => {
 };
 
 const create = (req, res) => {
+  console.log('create user: ', req.user)
   db.Myndex.create(req.body)
     .then(savedMyndex => {
       console.log(savedMyndex)

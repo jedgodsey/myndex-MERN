@@ -24,7 +24,7 @@ const AuthBox = () => {
 
   const login = () => {
     axios({
-      method: 'POST',
+      method: 'GET',
       data: {
         username: loginUsername,
         password: loginPassword
@@ -51,11 +51,11 @@ const AuthBox = () => {
       method: 'GET',
       withCredentials: true,
       url: 'http://localhost:4000/logout'
-    }).then(res => console.log('logout response: ', res))
+    }).then(res => window.location.href = '/')
   }
 
   return (
-    <Card height="large" width="medium" background="light-1" elevation="medium">
+    <Card height="medium" width="medium" background="light-1" elevation="medium">
       <CardHeader pad="medium">Register</CardHeader>
       <CardBody pad="medium">
         <div>
@@ -64,18 +64,18 @@ const AuthBox = () => {
           <button onClick={register}>Submit</button>
         </div>
         <div>
-          <h1>login</h1>
+          <p>login</p>
           <input placeholder='username' onChange={e => setLoginUsername(e.target.value)} />
           <input placeholder='password' onChange={e => setLoginPassword(e.target.value)} />
           <button onClick={login}>Submit</button>
         </div>
         <div>
-          <h1>get user</h1>
+          <p>get user</p>
           <button onClick={getUser}>Submit</button>
           {data ? <h1>Welcome Back {data.username}!</h1> : null}
         </div>
         <div>
-          <h1>log out</h1>
+          <p>logout</p>
           <button onClick={logOut}>log out</button>
         </div>        
       </CardBody>
