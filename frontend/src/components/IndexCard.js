@@ -19,28 +19,31 @@ class IndexCard extends React.Component {
   }
 
   pullQuotes = (tickers) => {
-    Tradier.fill(tickers.join()).then(res => {
-      let average = 0;
-      if (res.data.quotes.quote.change_percentage) {
-        average = res.data.quotes.quote.change_percentage
-      } else {
-        let total = 0
-        for (let i = 0; i < res.data.quotes.quote.length; i++) {
-          total += res.data.quotes.quote[i].change_percentage
+    if (tickers.length > 0) {
+      Tradier.fill(tickers.join()).then(res => {
+        let average = 0;
+        if (res.data.quotes.quote.change_percentage) {
+          average = res.data.quotes.quote.change_percentage
+        } else {
+          let total = 0
+          for (let i = 0; i < res.data.quotes.quote.length; i++) {
+            total += res.data.quotes.quote[i].change_percentage
+          }
+          average = total / res.data.quotes.quote.length
         }
-        average = total / res.data.quotes.quote.length
-      }
-      this.setState({performance: average})
-    })
+        this.setState({performance: average})
+      })
+    }
   }
 
   render() {
     return(
-      <Card  height="small" width="small" background="light-1">
+      <Card height="medium" width="medium" background="light-1" elevation="medium">
         <CardHeader pad="medium">{this.props.index.indexName}</CardHeader>
         <CardBody pad="medium">
           ID#: {this.props.index._id}
-          <p>{this.props.index.holdings}</p>
+          {console.log(this.props.index)}
+          {/* <p>{this.props.index.holdings}</p> */}
           <p>Today's performance: {this.state.performance}</p>
         </CardBody>
         <CardFooter pad={{horizontal: "small"}} background="light-2">

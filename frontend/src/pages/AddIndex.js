@@ -1,16 +1,20 @@
-import React from 'react';
+import React from "react";
+import { Box, TextInput, Button, Text } from "grommet";
+import { Search } from 'grommet-icons';
+import Tag from '../components/Tag';
 import Tradier from '../models/tradier';
 import MyndexModel from '../models/myndex';
-import ListItem from '../components/ListItem';
 
 class AddIndex extends React.Component {
   state = {
     query: '',
     list: [],
-    selections: []
-  }
+    selections: [],
+    name: ''
+  };
 
-  handleChange = (event) => {
+  //---------------- my functions ------------------
+  handleStockChange = (event) => {
     this.setState({
       query: event.target.value
     }, () => {
@@ -21,46 +25,105 @@ class AddIndex extends React.Component {
     })
   }
 
-  submitTicker = (event) => {
-    event.preventDefault();
-    let newTicker = this.state.selections.concat(event.target.ticker.value)
+  handleNameChange = (event) => {
     this.setState({
-      selections: newTicker,
-      query: ''
+      name: event.target.value
     })
   }
 
-  fillList = () => {
-    return this.state.list && this.state.query ? this.state.list.map((item, index) => <ListItem stock={item} pickTicker={this.pickTicker} />) : null
+  submitTicker = (ticker) => {
+    let newTicker = this.state.selections.concat(ticker)
+    this.setState({
+      selections: newTicker,
+      query: '',
+      list: []
+    })
   }
 
-  pickTicker = (ticker) => {
-    this.setState({query: ticker})
+  addIndex = (event) => {
+    MyndexModel.create({
+      indexName: this.state.name,
+      holdings: this.state.selections
+    })
+    .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
-  newIndex = (event) => {
-    event.preventDefault();
-    MyndexModel.create({holdings: this.state.selections})
-  }
+  //------------------grommet functions--------------------
+  onRemoveTag = index => {
+    const newTags = [...this.state.selections];
+    newTags.splice(index, 1);
+    this.setState({
+      selections: newTags
+    });
+  };
+
+  renderTags = (tags, onRemove) => {
+    return (
+      <Box direction="row">
+        {tags.map((tag, index) => (
+          <Tag key={tag} onRemove={() => onRemove(index)}>
+            {tag}
+          </Tag>
+        ))}
+      </Box>
+    );
+  };
+
+  renderSuggestions = () => {
+    if (this.state.list && this.state.query) {
+      return this.state.list.map((item, index, list) => ({
+        label: (
+          <Box
+            direction="row"
+            align="center"
+            gap="small"
+            border={index < list.length - 1 ? 'bottom' : undefined}
+            pad="small"
+            onClick={() => this.submitTicker(item.symbol)}
+          >
+            <Text>
+              <strong>{`${item.symbol}: ${item.description}`}</strong>
+            </Text>
+          </Box>
+        ),
+        value: item,
+      }));
+    }
+  };
 
   render() {
-    return(
-      <>
-        <h1>Crud.js</h1>
-        Current Stocks: {this.state.selections.map(item => item + ', ')}
-        <form onSubmit={this.submitTicker}>
-          <input type='text' onChange={this.handleChange} value={this.state.query} name="ticker" />
-          <ul>
-            {this.fillList()}
-          </ul>
-          <input type='submit' value="Add Stock" />
-        </form>
-        <form onSubmit={this.newIndex}>
-          <input type="text" name="name" label="Index Name" />
-          <input type="submit" value="Save Index" />
-        </form>
-      </>
-    )
+    return (
+      <Box margin="large" padding="medium">
+        <strong>Create a New Index</strong>
+        <TextInput
+              // plain={true}
+              placeholder="Enter The Name of Your Index"
+              // type="search"
+              value={this.state.name}
+              onChange={this.handleNameChange}
+              // name="indexName"
+            />
+        <Box direction="row" border="all">
+          {this.state.selections.length > 0 && this.renderTags(this.state.selections, this.onRemoveTag)}
+          <Box direction="row">
+            <Search color="brand" />
+            {console.log('your value: ', this.state.query)}
+            <TextInput
+              plain={true}
+              placeholder="Search and Select Companies"
+              type="search"
+              value={this.state.query}
+              onChange={this.handleStockChange}
+              // name="ticker"
+              suggestions={this.renderSuggestions() || []}
+            />
+          </Box>
+        </Box>
+        <Box align="start" pad="medium">
+          <Button label="Create" onClick={this.addIndex} />
+        </Box>
+      </Box>
+    );
   }
 }
 

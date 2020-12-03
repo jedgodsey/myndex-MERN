@@ -55,7 +55,7 @@ const AuthBox = () => {
   }
 
   return (
-    <Card  height="small" width="small" background="light-1">
+    <Card height="large" width="medium" background="light-1" elevation="medium">
       <CardHeader pad="medium">Register</CardHeader>
       <CardBody pad="medium">
         <div>

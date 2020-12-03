@@ -14,7 +14,6 @@ const show = (req, res) => {
 const create = (req, res) => {
   db.User.create(req.body)
     .then(savedUser => {
-      // console.log(savedUser)
       // res.json({game: savedMyndex})
     })
     .catch(err => {

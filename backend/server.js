@@ -48,12 +48,12 @@ app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
 
 
-function isLoggedIn(req, res, next){
-  console.log('req.user in server: ', req.isAuthenticated())
-  if(req.isAuthenticated()){
-      return next();
-  }
-}
+// function isLoggedIn(req, res, next){
+//   console.log('req.user in server: ', req.isAuthenticated())
+//   if(req.isAuthenticated()){
+//       return next();
+//   }
+// }
 
 app.post('/login', (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {

@@ -1,14 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { Grommet, Button, Heading } from 'grommet';
-import { Notification } from 'grommet-icons';
+// import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { Grommet, Heading, Box } from 'grommet';
 import AppBar from './components/AppBar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
-import EditIndex from './pages/EditIndex';
-import TestIndex from './pages/TestIndex';
 import UserModel from './models/user';
 
 const theme = {
@@ -41,7 +38,7 @@ class App extends React.Component {
       <>
         <Grommet theme={theme}>
           <AppBar>
-            <GoogleLogin
+            {/* <GoogleLogin
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Login'
               onSuccess={this.responseGoogle}
@@ -52,19 +49,17 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Logout'
               onLogoutSuccess={this.logout}
-            />
+            /> */}
             <Heading level='3' margin='none'>MyNdex</Heading>
-            <Button icon={<Notification />} onClick={() => {}} />
+            {/* <Button icon={<Notification />} onClick={() => {}} /> */}
           </AppBar>
-          <Switch>
-            <Route path='/test' component={TestIndex} />
-            <Route path='/add' component={AddIndex} />
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/signup' component={Dashboard} />
-            <Route path='/login' component={Dashboard} />
-            <Route path='/myndeces/:id/edit' component={EditIndex} />
-            <Route path='/' component={Home} />
-          </Switch>
+          <Box>
+            <Switch>
+              <Route path='/add' component={AddIndex} />
+              <Route path='/dashboard' component={Dashboard} />
+              <Route path='/' component={Home} />
+            </Switch>
+          </Box>
         </Grommet>
       </>
     );
