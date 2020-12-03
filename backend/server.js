@@ -44,7 +44,7 @@ app.use(cookieParser(process.env.SECRET))
 require('./passportConfig')(passport);
 
 // middleware - API routes
-// app.use("/myndeces", routes.myndeces);
+app.use("/myndeces", routes.myndeces);
 app.use("/users", routes.users);
 
 
@@ -71,19 +71,19 @@ app.get('/login', (req, res, next) => { // why next?
 
 //---------------testing
 
-app.get("/myndeces", (req, res, next) => {
-  passport.authenticate('local', (err, user, info) => {
-    console.log('req.login? ', req.sessionID)
-    db.Myndex.find({})
-      .then(foundIndeces => {
-        res.json({indeces: foundIndeces})
-      })
-      .catch(err => {
-        console.log('myndex index error: ', err)
-        res.json({Error: 'unable to get your data'})
-      })
-  })(req, res, next) // why (req, res, next) here?
-});
+// app.get("/myndeces", (req, res, next) => {
+//   passport.authenticate('local', (err, user, info) => {
+//     console.log('req.login? ', req.sessionID)
+//     db.Myndex.find({})
+//       .then(foundIndeces => {
+//         res.json({indeces: foundIndeces})
+//       })
+//       .catch(err => {
+//         console.log('myndex index error: ', err)
+//         res.json({Error: 'unable to get your data'})
+//       })
+//   })(req, res, next) // why (req, res, next) here?
+// });
 
 //-------------------
 

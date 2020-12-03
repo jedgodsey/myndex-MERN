@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box } from 'grommet';
 import AppBar from './components/AppBar';
 import Home from './pages/Home';
@@ -24,8 +24,8 @@ class App extends React.Component {
   }
   
   responseGoogle = (response) => {
-    console.log(response)
-    console.log(response.profileObj);
+    console.log('response: ', response)
+    console.log('profile obj: ', response.profileObj);
     UserModel.create(response.profileObj);
   }
 
@@ -38,7 +38,7 @@ class App extends React.Component {
       <>
         <Grommet theme={theme}>
           <AppBar>
-            {/* <GoogleLogin
+            <GoogleLogin
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Login'
               onSuccess={this.responseGoogle}
@@ -49,7 +49,7 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Logout'
               onLogoutSuccess={this.logout}
-            /> */}
+            />
             <Heading level='3' margin='none'>MyNdex</Heading>
             {/* <Button icon={<Notification />} onClick={() => {}} /> */}
           </AppBar>
