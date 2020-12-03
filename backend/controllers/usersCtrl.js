@@ -23,6 +23,8 @@ const verify = (req, res) => {
         .catch(err => console.log('create user error: ', err))
     }
   })
+    // .then(res => res.json())
+    .catch(err => console.log('verify user error', err))
     // .catch(res => {
     //   console.log('in catch ', res)
     //   db.User.create(req.body)

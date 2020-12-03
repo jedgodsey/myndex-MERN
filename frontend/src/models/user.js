@@ -12,11 +12,13 @@ class UserModel {
   }
 
   static create(newUser) {
+    console.log('trying to fetch')
     return fetch(url, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(newUser),
-    })
+    }).then(res => console.log('create res: ', res))
+    .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
       .then(res => res.json())
       .catch(err => {
         console.log('error fetching data in UserModel.create: ', err)

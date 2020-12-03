@@ -55,6 +55,13 @@ app.use("/users", routes.users);
 //   }
 // }
 
+app.get('/authorize', (req, res) => {
+  db.User.findOne({sessionID: req.sessionID}, (err, authorizedUser) => {
+    console.log('error: ', err)
+    console.log('user: ', authorizedUser)
+  })
+})
+
 app.get('/login', (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {
     console.log('login id: ', user._id)
@@ -115,24 +122,6 @@ app.get('/logout', (req, res) => {
   req.logout();
   res.redirect('/')
 })
-
-//-------------------testing this out------------------------
-
-// app.get("/myndeces", (req, res) => {
-//   console.log('your req: ', req.user)
-//   console.log('your req: ', req.body)
-//   console.log('your req: ', req.params)
-//   db.Myndex.find({})
-//     .then(foundIndeces => {
-//       res.json({indeces: foundIndeces})
-//     })
-//     .catch(err => {
-//       console.log('myndex index error: ', err)
-//       res.json({Error: 'unable to get your data'})
-//     })
-// });
-
-
 
 // connection
 app.listen(port, () => console.log(`Server is running on port ${port}`));
