@@ -1,102 +1,103 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { Card, Box, Chart, Stack, Text } from 'grommet';
-
-import { calcs } from '../utility/calcs';
-
+import Tradier from '../models/tradier'
 
 
-export const Rich = () => {
-  const [state, setState] = useState({ values: [], yAxis: [], xAxis: [] });
 
-  useEffect(() => {
-    // generate data as a server might
-    const date = new Date(2018, 5, 9);
-    let value = 12345.678;
-    const averages = [];
-    while (averages.length < 21) {
-      averages.unshift({ date: date.toISOString(), value });
-      date.setTime(date.getTime() - 1000 * 3600 * 24);
-      const factor = date.getDate() % 3;
-      value = factor === 0 ? value + 12.34 : value - 123.45 * factor;
-    }
+class Rich extends React.Component {
 
-    // convert for displaying
-    const values = averages.map(avg => ({
-      value: [new Date(avg.date).getTime(), avg.value],
-    }));
-
-    const { axis, bounds } = calcs(values, { coarseness: 5, steps: [3, 3] });
-    const xAxis = axis[0].map(x =>
-      new Date(x).toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-      }),
-    );
-    const yAxis = axis[1];
-    setState({ bounds, values, yAxis, xAxis });
-  }, []);
-
-  const { bounds, values, yAxis, xAxis } = state;
-  const chartProps = {
-    size: { width: 'medium', height: 'small' },
-    bounds,
-    values,
-    overflow: true,
-  };
-  return (
-    <Card height="medium" width="large" background="light-1" elevation="medium">
-      <Box align="center" pad="large">
-        <Box
-          direction="row"
-          justify="between"
-          width="medium"
-          margin={{ vertical: 'small' }}
-        >
-          {xAxis.map(x => (
-            <Text key={x}>{x}</Text>
-          ))}
-        </Box>
-        <Stack guidingChild="last">
-          <Box fill justify="between">
-            {yAxis.map((y, index) => {
-              const first = index === 0;
-              const last = index === yAxis.length - 1 && !first;
-              let align;
-              if (first) {
-                align = 'start';
-              } else if (last) {
-                align = 'end';
-              } else {
-                align = 'center';
-              }
-              return (
-                <Box key={y} direction="row" align={align}>
-                  <Box pad={{ horizontal: 'small' }}>
-                    <Text>{y}</Text>
-                  </Box>
-                  <Box border="top" flex />
-                </Box>
-              );
-            })}
+  labelY = () => {
+    let yAxis = ['alpha', 'bravo', 'charlie', 'delta']
+    return yAxis.map((y, index) => {
+      const first = index === 0;
+      const last = index === yAxis.length - 1 && !first;
+      let align;
+      if (first) {
+        align = 'start';
+      } else if (last) {
+        align = 'end';
+      } else {
+        align = 'center';
+      }
+      return (
+        <Box key={y} direction="row" align={align}>
+          <Box pad={{ horizontal: 'small' }}>
+            <Text>{y}</Text>
           </Box>
-          {/* <Chart
-            {...chartProps}
-            type="area"
-            color={{ color: 'accent-1', opacity: 'medium' }}
-            thickness="hair"
-          /> */}
-          <Chart
-            {...chartProps}
-            type="line"
-            round
-            color={{ color: 'brand', opacity: 'strong' }}
-            thickness="hair"
-            animate
-          />
-        </Stack>
-      </Box>
-    </Card>
-  );
+          <Box border="top" flex />
+        </Box>
+      );
+    })
+    this.setState()
+  }
+  render() {
+    const chartProps = {
+      size: { width: 'medium', height: 'small' },
+      bounds: [[0, 100], [0, 100]],
+      values:  [
+        {
+          "value": [0, 10],
+          "label": "1"
+        },
+        {
+          "value": [20, 30],
+          "label": "2"
+        },
+        {
+          "value": [30, 10],
+          "label": "3"
+        },
+        {
+          "value": [40, 50],
+          "label": "4"
+        },
+        {
+          "value": [50, 90],
+          "label": "5"
+        },
+        {
+          "value": [60, 10],
+          "label": "6"
+        },
+      ],
+      overflow: true,
+    };
+    return (
+      <Card height="medium" width="large" background="light-1" elevation="medium">
+        <Box align="center" pad="large">
+          <Box
+            direction="row"
+            justify="between"
+            width="medium"
+            margin={{ vertical: 'small' }}
+          >
+            {['alpha', 'bravo', 'charlie', 'delta'].map(x => (
+              <Text key={x}>{x}</Text>
+            ))}
+          </Box>
+          <Stack guidingChild="last">
+            <Box fill justify="between">
+              {this.labelY}
+            </Box>
+            {/* <Chart
+              {...chartProps}
+              type="area"
+              color={{ color: 'accent-1', opacity: 'medium' }}
+              thickness="hair"
+            /> */}
+            <Chart
+              {...chartProps}
+              type="line"
+              round
+              color={{ color: 'brand', opacity: 'strong' }}
+              thickness="hair"
+              animate
+            />
+          </Stack>
+        </Box>
+      </Card>
+    );
+  }
 };
 
 Rich.story = {

@@ -19,7 +19,7 @@ const AuthBox = () => {
       withCredentials: true,
       url: 'http://localhost:4000/register'
     })
-      .then(res => console.log(res)) // res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
   const login = () => {
@@ -32,7 +32,7 @@ const AuthBox = () => {
       withCredentials: true,
       url: 'http://localhost:4000/login'
     })
-      .then(res => console.log(res)) // res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   };
 
   const getUser = () => {
@@ -51,7 +51,7 @@ const AuthBox = () => {
       method: 'GET',
       withCredentials: true,
       url: 'http://localhost:4000/logout'
-    }).then(res => console.log(res)) // window.location.href = '/loggedout')
+    }).then(res => console.log(res))
   }
 
   return (

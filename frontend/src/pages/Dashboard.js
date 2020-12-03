@@ -1,4 +1,5 @@
 import React from 'react';
+import { Box } from 'grommet';
 import MyndexModel from '../models/myndex'
 import IndexCard from '../components/IndexCard';
 
@@ -14,11 +15,9 @@ class Dashboard extends React.Component {
   }
   render() {
     return(
-      <>
-        <h1>Dashboard.js test four</h1>
-        <p>get some</p>
+      <Box direction="row" flex="true" alignContent="between">
         {this.state.indeces && this.state.indeces.map(item => <IndexCard index={item} />)}
-      </>
+      </Box>
     )
   }
 }

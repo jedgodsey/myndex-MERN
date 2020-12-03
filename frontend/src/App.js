@@ -1,12 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+// import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box } from 'grommet';
 import AppBar from './components/AppBar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
-import UserModel from './models/user';
+// import UserModel from './models/user';
 
 const theme = {
   global: {
@@ -19,26 +19,26 @@ const theme = {
 };
 
 class App extends React.Component {
-  state = {
-    isLoggedIn: false
-  }
+  // state = {
+  //   isLoggedIn: false
+  // }
   
-  responseGoogle = (response) => {
-    console.log('response: ', response)
-    console.log('profile obj: ', response.profileObj);
-    UserModel.verify(response.profileObj);
-  }
+  // responseGoogle = (response) => {
+  //   console.log('response: ', response)
+  //   console.log('profile obj: ', response.profileObj);
+  //   UserModel.verify(response.profileObj);
+  // }
 
-  logout = () => {
-    this.setState( { isLoggedIn: false } ) 
-  }
+  // logout = () => {
+  //   this.setState( { isLoggedIn: false } ) 
+  // }
 
   render() {
     return (
       <>
         <Grommet theme={theme}>
           <AppBar>
-            <GoogleLogin
+            {/* <GoogleLogin
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Login'
               onSuccess={this.responseGoogle}
@@ -49,11 +49,11 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Logout'
               onLogoutSuccess={this.logout}
-            />
-            <Heading level='3' margin='none'>MyNdex</Heading>
+            /> */}
+            <Heading level='3' margin='none'>MyNdex</Heading> The Vision to See What Others Can't
             {/* <Button icon={<Notification />} onClick={() => {}} /> */}
           </AppBar>
-          <Box>
+          <Box pad="large">
             <Switch>
               <Route path='/add' component={AddIndex} />
               <Route path='/dashboard' component={Dashboard} />

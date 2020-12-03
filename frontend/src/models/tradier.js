@@ -26,6 +26,18 @@ class Tradier {
     .catch(error => console.log(error))
     return test;
   }
+
+  static tradierHistory(ticker) {
+    let history = axios.get(`https://sandbox.tradier.com/v1/markets/history?symbol=${ticker}`, {
+      headers: {
+        'Authorization': `Bearer ${key}`,
+        'Accept': 'application/json'
+        }
+    })
+    .then(response => response)
+    .catch(error => console.log(error))
+    return history;
+  }
 }
 
 export default Tradier;

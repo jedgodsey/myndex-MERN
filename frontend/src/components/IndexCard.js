@@ -29,7 +29,7 @@ class IndexCard extends React.Component {
           for (let i = 0; i < res.data.quotes.quote.length; i++) {
             total += res.data.quotes.quote[i].change_percentage
           }
-          average = total / res.data.quotes.quote.length
+          average = (total / res.data.quotes.quote.length).toFixed(2);
         }
         this.setState({performance: average})
       })
@@ -42,7 +42,7 @@ class IndexCard extends React.Component {
         <CardHeader pad="medium">{this.props.index.indexName}</CardHeader>
         <CardBody pad="medium">
           ID#: {this.props.index._id}
-          {/* <p>{this.props.index.holdings}</p> */}
+          Components: <p>{this.props.index.holdings}</p>
           <p>Today's performance: {this.state.performance}</p>
         </CardBody>
         <CardFooter pad={{horizontal: "small"}} background="light-2">
