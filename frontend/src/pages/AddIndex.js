@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, TextInput, Button, Text } from "grommet";
+import { Box, TextInput, Button, Text, Card } from "grommet";
 import { Search } from 'grommet-icons';
 import Tag from '../components/Tag';
 import Tradier from '../models/tradier';
@@ -92,36 +92,38 @@ class AddIndex extends React.Component {
 
   render() {
     return (
-      <Box margin="large" padding="medium">
-        <strong>Create a New Index</strong>
-        <TextInput
-              // plain={true}
-              placeholder="Enter The Name of Your Index"
-              // type="search"
-              value={this.state.name}
-              onChange={this.handleNameChange}
-              // name="indexName"
-            />
-        <Box direction="row" border="all">
-          {this.state.selections.length > 0 && this.renderTags(this.state.selections, this.onRemoveTag)}
-          <Box direction="row">
-            <Search color="brand" />
-            {console.log('your value: ', this.state.query)}
-            <TextInput
-              plain={true}
-              placeholder="Search and Select Companies"
-              type="search"
-              value={this.state.query}
-              onChange={this.handleStockChange}
-              // name="ticker"
-              suggestions={this.renderSuggestions() || []}
-            />
+      <Card height="large" width="xlarge" background="light-1" elevation="medium">
+        <Box margin="large" padding="medium">
+          <strong>Create a New Index</strong>
+          <TextInput
+                // plain={true}
+                placeholder="Enter The Name of Your Index"
+                // type="search"
+                value={this.state.name}
+                onChange={this.handleNameChange}
+                // name="indexName"
+              />
+          <Box direction="row" border="all">
+            {this.state.selections.length > 0 && this.renderTags(this.state.selections, this.onRemoveTag)}
+            <Box direction="row">
+              <Search color="brand" />
+              {console.log('your value: ', this.state.query)}
+              <TextInput
+                plain={true}
+                placeholder="Search and Select Companies"
+                type="search"
+                value={this.state.query}
+                onChange={this.handleStockChange}
+                // name="ticker"
+                suggestions={this.renderSuggestions() || []}
+              />
+            </Box>
+          </Box>
+          <Box align="start" pad="medium">
+            <Button label="Create" onClick={this.addIndex} />
           </Box>
         </Box>
-        <Box align="start" pad="medium">
-          <Button label="Create" onClick={this.addIndex} />
-        </Box>
-      </Box>
+      </Card>
     );
   }
 }

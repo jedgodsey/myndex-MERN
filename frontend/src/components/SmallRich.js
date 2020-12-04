@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Box, Chart, Stack, Text, Heading } from 'grommet';
+import { Box, Chart, Stack, Text } from 'grommet';
 import Tradier from '../models/tradier'
 
 
@@ -23,9 +23,20 @@ class SmallRich extends React.Component {
     let maxX = Math.max(...points.map(item => item.value[0]))
     let minY = Math.min(...points.map(item => item.value[1]))
     let maxY = Math.max(...points.map(item => item.value[1]))
+    //--------------------- below
+    let levels = []
+    for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
+      levels.unshift(points[i].value[1].toPrecision(3))
+    }
+    let zones = []
+    for (let i = 1; i < points.length; i += 30) {
+      zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
+    }
     this.setState({
       data: points,
-      bounds: [[minX, maxX], [minY, maxY]]
+      bounds: [[minX, maxX], [minY, maxY]],
+      yAxis: levels,
+      xAxis: zones
     })
   }
 
@@ -56,48 +67,48 @@ class SmallRich extends React.Component {
     return this.state.xAxis.map(x => (<Text key={x}>{x}</Text>))
   }
   render() {
-    console.log(this.state.bounds)
     const chartProps = {
-      size: { width: 'large', height: 'medium' },
+      size: { width: 'large', height: 'small' },
       bounds: this.state.bounds,
       values:  this.state.data,
       overflow: true,
     };
     return (
-      <Box align="center" pad="large">
-        <Box
-          direction="row"
-          justify="between"
-          width="large"
-          margin={{ vertical: 'small' }}
-        >
-          {this.labelX()}
-        </Box>
-        <Stack guidingChild="last">
-          <Box fill justify="between">
-            {this.labelY()}
+        <Box align="center" width='medium' height='small' border>
+          <Box
+            direction="row"
+            justify="between"
+            width="medium"
+            margin={{ vertical: 'small' }}
+          >
+            {this.labelX()}
           </Box>
-          {/* <Chart
-            {...chartProps}
-            type="area"
-            color={{ color: 'accent-1', opacity: 'medium' }}
-            thickness="hair"
-          /> */}
-          <Chart
-            {...chartProps}
-            type="line"
-            round
-            color={{ color: 'brand', opacity: 'strong' }}
-            thickness="xsmall"
-            animate
-          />
-        </Stack>
-      </Box>
+          <Stack guidingChild="last">
+            <Box fill justify="between">
+              {this.labelY()}
+            </Box>
+            <Chart
+              {...chartProps}
+              type="area"
+              color={{ color: 'accent-1', opacity: 'medium' }}
+              thickness="hair"
+              animate
+            />
+            <Chart
+              {...chartProps}
+              type="line"
+              round
+              color={{ color: 'brand', opacity: 'strong' }}
+              thickness="hair"
+              animate
+            />
+          </Stack>
+        </Box>
     );
   }
 };
 
-Rich.story = {
+SmallRich.story = {
   name: 'Animate',
   parameters: {
     chromatic: { disable: true },

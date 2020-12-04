@@ -26,7 +26,7 @@ class Rich extends React.Component {
     //--------------------- below
     let levels = []
     for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
-      levels.push(points[i].value[1].toPrecision(3))
+      levels.unshift(points[i].value[1].toPrecision(3))
     }
     let zones = []
     for (let i = 1; i < points.length; i += 30) {
@@ -74,8 +74,9 @@ class Rich extends React.Component {
       overflow: true,
     };
     return (
-      <Card height="large" width="xlarge" background="light-1" elevation="medium">
-        <Heading level='2' margin='none' pad='medium'>Salesforce, Inc. (CRM)</Heading>
+      <Card height="817px" width="xlarge" background="light-1" elevation="medium">
+        <Heading level='2' margin='medium' pad='medium'>Chart of the Day:</Heading>
+        <Heading level='3' margin='medium' pad='medium'>Salesforce, Inc. (CRM)</Heading>
         <Box align="center" pad="large">
           <Box
             direction="row"
@@ -102,7 +103,7 @@ class Rich extends React.Component {
               round
               color={{ color: 'brand', opacity: 'strong' }}
               thickness="xsmall"
-              animate
+              // animate
             />
           </Stack>
         </Box>
