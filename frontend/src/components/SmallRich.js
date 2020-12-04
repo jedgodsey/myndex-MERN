@@ -8,7 +8,7 @@ class SmallRich extends React.Component {
   state = {
     yAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     xAxis: ['alpha', 'bravo', 'charlie', 'delta'],
-    data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [60, 10]},],
+    data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [100, 10]},],
     bounds: [[0, 100], [0, 100]],
     calls: []
   }
@@ -16,7 +16,7 @@ class SmallRich extends React.Component {
   componentDidMount() {
     // this.getData('CRM')
     // ['LYFT', 'MSFT', 'NKLA', 'ORCL', 'PLTR']
-    this.run(this.props.holdings)
+    // this.run(this.props.holdings)
   }
 
   getData = async (ticker) => {
@@ -43,36 +43,36 @@ class SmallRich extends React.Component {
     })
   }
 
-  grab = async (stock) => {
-    let res = await Tradier.tradierHistory(stock)
-    return res.data.history.day.slice(-30).map(item => [item.date, item.close])
-  }
+  // grab = async (stock) => {
+  //   let res = await Tradier.tradierHistory(stock)
+  //   return res.data.history.day.slice(-30).map(item => [item.date, item.close])
+  // }
 
-  run = (array) => {
-    let allStats = []
-    for (let i = 0; i < array.length; i++) {
-      let stats = this.grab(array[i])
-      allStats.push(stats)
-    }
-    let dates = []
-    for (let m = 0; m < allStats[0].length; m++) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-      dates.push([allStats[0][m][0]])
-      console.log('stats: ', allStats[0][m])
-    }
+  // run = (array) => {
+  //   let allStats = []
+  //   for (let i = 0; i < array.length; i++) {
+  //     this.grab(array[i]).then(res => allStats.push(res))
+  //   }
+  //   let dates = []
+  //   console.log(allStats)
+  //   Promise.all(allStats).then(() => console.log('your array: ', allStats.length))
+  //   for (let m = 0; m < 30; m++) { // figure out allStats[0].length
+  //     // dates.push([allStats[0][m][0]])
+  //   }
 
-    // console.log(dates)
+  //   // console.log(dates)
 
-    let averages = []
+  //   let averages = []
 
-    for (let j = 0; j < allStats[0].length; j++) { //days
-      let day = 0
-      for (let k = 0; k < allStats.length; k++) { //stocks
-        day += allStats[k][j][1]
-      }
-      // averages.push([allStats[k][0][0], day / allStats.length])
-    }
-    // console.log(averages)
-  }
+  //   for (let j = 0; j < allStats[0].length; j++) { //days
+  //     let day = 0
+  //     for (let k = 0; k < allStats.length; k++) { //stocks
+  //       day += allStats[k][j][1]
+  //     }
+  //     // averages.push([allStats[k][0][0], day / allStats.length])
+  //   }
+  //   // console.log(averages)
+  // }
 
 
 
