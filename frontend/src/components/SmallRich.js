@@ -145,7 +145,7 @@ class SmallRich extends React.Component {
 
     // console.log(this.props)
     return (
-        <Box align="center" width='medium' height='small' flex='true'>
+        <Box align="center" width='medium' height='small'>
           <Box
             direction="row"
             justify="between"

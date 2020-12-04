@@ -63,7 +63,7 @@ class App extends React.Component {
               <Link to={`/`}><Button icon={<Logout />} /></Link>
             </Box>
           </AppBar>
-          <Box pad="large" height="90vh">
+          <Box pad="large" height="95vh">
             <Switch>
               <Route path='/add' component={AddIndex} />
               <Route path='/dashboard' component={Dashboard} />
