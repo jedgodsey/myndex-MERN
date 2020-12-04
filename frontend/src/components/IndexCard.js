@@ -39,11 +39,10 @@ class IndexCard extends React.Component {
 
   render() {
     return(
-      <Card height="500px" width="medium" background="light-1" elevation="medium" margin="medium">
+      <Card height="500px" width="medium" background="light-1" elevation="medium" margin="medium" key={this.props.id}>
         <CardHeader pad="xsmall" height='xxsmall'><Heading level='3'>{this.props.index.indexName}</Heading></CardHeader>
         <CardBody pad="small">
-          <SmallRich holdings={this.props.holdings} />
-          {console.log(this.props.index.holdings)}
+          <SmallRich holdings={this.props.index.holdings} />
         </CardBody>
         <CardFooter pad={{horizontal: "small"}} height='small' background="light-2">
           <Box>
@@ -56,7 +55,7 @@ class IndexCard extends React.Component {
               <Link to={`/myndeces/${this.props.index._id}/edit`}>
                 <Button label='edit' />
               </Link>
-              <Link>
+              <Link to='/dashboard'>
                 <Button label='delete' onClick={() => this.onDelete(this.props.index._id)} />
               </Link>
             </Box>

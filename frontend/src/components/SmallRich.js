@@ -9,11 +9,14 @@ class SmallRich extends React.Component {
     yAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     xAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [60, 10]},],
-    bounds: [[0, 100], [0, 100]]
+    bounds: [[0, 100], [0, 100]],
+    calls: []
   }
 
   componentDidMount() {
-    this.getData('CRM')
+    // this.getData('CRM')
+    // ['LYFT', 'MSFT', 'NKLA', 'ORCL', 'PLTR']
+    this.run(this.props.holdings)
   }
 
   getData = async (ticker) => {
@@ -39,6 +42,39 @@ class SmallRich extends React.Component {
       xAxis: zones
     })
   }
+
+  grab = async (stock) => {
+    let res = await Tradier.tradierHistory(stock)
+    return res.data.history.day.slice(-30).map(item => [item.date, item.close])
+  }
+
+  run = (array) => {
+    let allStats = []
+    for (let i = 0; i < array.length; i++) {
+      let stats = this.grab(array[i])
+      allStats.push(stats)
+    }
+    let dates = []
+    for (let m = 0; m < allStats[0].length; m++) { //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      dates.push([allStats[0][m][0]])
+      console.log('stats: ', allStats[0][m])
+    }
+
+    // console.log(dates)
+
+    let averages = []
+
+    for (let j = 0; j < allStats[0].length; j++) { //days
+      let day = 0
+      for (let k = 0; k < allStats.length; k++) { //stocks
+        day += allStats[k][j][1]
+      }
+      // averages.push([allStats[k][0][0], day / allStats.length])
+    }
+    // console.log(averages)
+  }
+
+
 
   labelY = () => {
     return this.state.yAxis.map((y, index) => {
@@ -73,8 +109,10 @@ class SmallRich extends React.Component {
       values:  this.state.data,
       overflow: true,
     };
+
+    // console.log(this.props)
     return (
-        <Box align="center" width='medium' height='small' border>
+        <Box align="center" width='medium' height='small'>
           <Box
             direction="row"
             justify="between"
