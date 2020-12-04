@@ -4,7 +4,7 @@ import Tradier from '../models/tradier'
 
 
 
-class Rich extends React.Component {
+class SmallRich extends React.Component {
   state = {
     yAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     xAxis: ['alpha', 'bravo', 'charlie', 'delta'],
@@ -64,39 +64,35 @@ class Rich extends React.Component {
       overflow: true,
     };
     return (
-      <Card height="large" width="xlarge" background="light-1" elevation="medium">
-        <Heading level='2' margin='none' pad='medium'>Salesforce, Inc. (CRM)</Heading>
-        <Box align="center" pad="large">
-          <Box
-            direction="row"
-            justify="between"
-            width="large"
-            margin={{ vertical: 'small' }}
-          >
-            {this.labelX()}
-          </Box>
-          <Stack guidingChild="last">
-            <Box fill justify="between">
-              {this.labelY()}
-            </Box>
-            <Chart
-              {...chartProps}
-              type="area"
-              color={{ color: 'accent-1', opacity: 'medium' }}
-              thickness="hair"
-              animate
-            />
-            <Chart
-              {...chartProps}
-              type="line"
-              round
-              color={{ color: 'brand', opacity: 'strong' }}
-              thickness="xsmall"
-              // animate
-            />
-          </Stack>
+      <Box align="center" pad="large">
+        <Box
+          direction="row"
+          justify="between"
+          width="large"
+          margin={{ vertical: 'small' }}
+        >
+          {this.labelX()}
         </Box>
-      </Card>
+        <Stack guidingChild="last">
+          <Box fill justify="between">
+            {this.labelY()}
+          </Box>
+          {/* <Chart
+            {...chartProps}
+            type="area"
+            color={{ color: 'accent-1', opacity: 'medium' }}
+            thickness="hair"
+          /> */}
+          <Chart
+            {...chartProps}
+            type="line"
+            round
+            color={{ color: 'brand', opacity: 'strong' }}
+            thickness="xsmall"
+            animate
+          />
+        </Stack>
+      </Box>
     );
   }
 };
@@ -108,4 +104,4 @@ Rich.story = {
   },
 };
 
-export default Rich;
+export default SmallRich;

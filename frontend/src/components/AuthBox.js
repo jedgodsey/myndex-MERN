@@ -51,7 +51,7 @@ const AuthBox = () => {
       method: 'GET',
       withCredentials: true,
       url: 'http://localhost:4000/logout'
-    }).then(res => console.log(res))
+    }).then(res => res.status === 200 ? window.location.href = '/' : null)
   }
 
   return (

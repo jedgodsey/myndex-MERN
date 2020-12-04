@@ -7,10 +7,10 @@ import Rich from '../components/Rich';
 class Home extends React.Component {
   render() {
     return(
-      <Box direction="row-responsive">
-        <Guide />
-        <AuthBox />
+      <Box direction="row-responsive" gap="large">
+        {/* <Guide /> */}
         <Rich />
+        <AuthBox />
       </Box>
     )
   }

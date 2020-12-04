@@ -1,5 +1,5 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Link } from 'react-router-dom';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box } from 'grommet';
 import AppBar from './components/AppBar';
@@ -50,7 +50,10 @@ class App extends React.Component {
               buttonText='Logout'
               onLogoutSuccess={this.logout}
             /> */}
-            <Heading level='3' margin='none'>MyNdex</Heading> The Vision to See What Others Can't
+            <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
+              MyNdex
+            </Heading></Link>
+            The Vision to See What Others Cannot
             {/* <Button icon={<Notification />} onClick={() => {}} /> */}
           </AppBar>
           <Box pad="large">

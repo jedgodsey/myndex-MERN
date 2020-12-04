@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardBody, CardFooter, Button } from 'grommet';
+import { Card, CardHeader, CardBody, CardFooter, Button, Heading } from 'grommet';
 import { ShareOption } from 'grommet-icons';
 import MyndexModel from '../models/myndex';
 import Tradier from '../models/tradier';
@@ -38,19 +38,20 @@ class IndexCard extends React.Component {
 
   render() {
     return(
-      <Card height="medium" width="medium" background="light-1" elevation="medium">
-        <CardHeader pad="medium">{this.props.index.indexName}</CardHeader>
+      <Card height="medium" width="medium" background="light-1" elevation="medium" margin="medium">
+        <CardHeader pad="medium"><Heading level='3'>{this.props.index.indexName}</Heading></CardHeader>
         <CardBody pad="medium">
           ID#: {this.props.index._id}
-          Components: <p>{this.props.index.holdings}</p>
-          <p>Today's performance: {this.state.performance}</p>
+          {console.log(this.props.index.holdings)}
+          <p>Components: {this.props.index.holdings.toString().replace(/,/g, ', ')}</p>
+          <p>Today's gain: {this.state.performance}%</p>
         </CardBody>
         <CardFooter pad={{horizontal: "small"}} background="light-2">
           <Button icon={<ShareOption color="plain" />} hoverIndicator />
           <Link to={`/myndeces/${this.props.index._id}/edit`}>
-            <p>edit the above index</p>
+            <Button label='edit' />
           </Link>
-          <Button onClick={() => this.onDelete(this.props.index._id)}>delete the above index</Button>
+          <Button label='delete' onClick={() => this.onDelete(this.props.index._id)} />
         </CardFooter>
       </Card>
     )
