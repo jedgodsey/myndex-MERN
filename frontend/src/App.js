@@ -1,12 +1,13 @@
 import React from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 // import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { Grommet, Heading, Box } from 'grommet';
+import { Grommet, Heading, Box, Footer, Button } from 'grommet';
+import { Logout, BarChart, AddCircle } from 'grommet-icons';
 import AppBar from './components/AppBar';
 import Home from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
-// import UserModel from './models/user';
+import UserModel from './models/user';
 
 const theme = {
   global: {
@@ -29,9 +30,9 @@ class App extends React.Component {
   //   UserModel.verify(response.profileObj);
   // }
 
-  // logout = () => {
-  //   this.setState( { isLoggedIn: false } ) 
-  // }
+  logOut = () => {
+    UserModel.logOut(); 
+  }
 
   render() {
     return (
@@ -50,19 +51,26 @@ class App extends React.Component {
               buttonText='Logout'
               onLogoutSuccess={this.logout}
             /> */}
-            <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
-              MyNdex
-            </Heading></Link>
-            The Vision to See What Others Cannot
-            {/* <Button icon={<Notification />} onClick={() => {}} /> */}
+            <Box>
+              <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
+                MyNdex
+              </Heading></Link>
+              The Vision to See What Others Cannot
+            </Box>
+            <Box direction='row'>
+              <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
+              <Link to={`/add`}><Button icon={<AddCircle />} /></Link>
+              <Link to={`/`}><Button icon={<Logout />} /></Link>
+            </Box>
           </AppBar>
-          <Box pad="large">
+          <Box pad="large" height="90vh">
             <Switch>
               <Route path='/add' component={AddIndex} />
               <Route path='/dashboard' component={Dashboard} />
               <Route path='/' component={Home} />
             </Switch>
           </Box>
+          <Footer height='large' background='brand' />
         </Grommet>
       </>
     );

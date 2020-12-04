@@ -61,6 +61,14 @@ class UserModel {
         return {message: 'error in delete'};
       })
   }
+
+  logOut = () => {
+    axios({
+      method: 'GET',
+      withCredentials: true,
+      url: 'http://localhost:4000/logout'
+    }).then(res => res.status === 200 ? window.location.href = '/' : null)
+  }
 }
 
 export default UserModel;

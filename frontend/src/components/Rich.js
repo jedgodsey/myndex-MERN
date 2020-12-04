@@ -23,9 +23,20 @@ class Rich extends React.Component {
     let maxX = Math.max(...points.map(item => item.value[0]))
     let minY = Math.min(...points.map(item => item.value[1]))
     let maxY = Math.max(...points.map(item => item.value[1]))
+    //--------------------- below
+    let levels = []
+    for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
+      levels.push(points[i].value[1].toPrecision(3))
+    }
+    let zones = []
+    for (let i = 1; i < points.length; i += 30) {
+      zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
+    }
     this.setState({
       data: points,
-      bounds: [[minX, maxX], [minY, maxY]]
+      bounds: [[minX, maxX], [minY, maxY]],
+      yAxis: levels,
+      xAxis: zones
     })
   }
 
@@ -56,7 +67,6 @@ class Rich extends React.Component {
     return this.state.xAxis.map(x => (<Text key={x}>{x}</Text>))
   }
   render() {
-    console.log(this.state.bounds)
     const chartProps = {
       size: { width: 'large', height: 'medium' },
       bounds: this.state.bounds,
@@ -92,7 +102,7 @@ class Rich extends React.Component {
               round
               color={{ color: 'brand', opacity: 'strong' }}
               thickness="xsmall"
-              // animate
+              animate
             />
           </Stack>
         </Box>

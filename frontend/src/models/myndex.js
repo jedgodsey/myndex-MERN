@@ -26,6 +26,8 @@ class MyndexModel {
       body: JSON.stringify(newMyndex),
       credentials: 'include'
     })
+      .then(res => console.log('status: ', res.status)) //window.location.href = '/dashboard')
+      // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
       .then(res => res.json())
       .catch(err => {
         console.log('error fetching data in MyndexModel.create: ', err)
@@ -45,6 +47,7 @@ class MyndexModel {
         console.log('error fetching data in MyndexModel.update: ', err)
         return {message: 'error in update'};
       })
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
   static delete(id) {
@@ -57,6 +60,7 @@ class MyndexModel {
         console.log('error fetching data in MyndexModel.delete: ', err)
         return {message: 'error in delete'};
       })
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 }
 

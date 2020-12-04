@@ -45,7 +45,6 @@ class AddIndex extends React.Component {
       indexName: this.state.name,
       holdings: this.state.selections
     })
-    .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
   //------------------grommet functions--------------------
