@@ -6,8 +6,8 @@ import Tradier from '../models/tradier'
 
 class SmallRich extends React.Component {
   state = {
-    yAxis: ['alpha', 'bravo', 'charlie', 'delta'],
-    xAxis: ['alpha', 'bravo', 'charlie', 'delta'],
+    yAxis: [25, 50, 75, 100],
+    xAxis: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
     data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [100, 10]},],
     bounds: [[0, 100], [0, 100]],
     calls: []
@@ -16,7 +16,7 @@ class SmallRich extends React.Component {
   componentDidMount() {
     // this.getData('CRM')
     // ['LYFT', 'MSFT', 'NKLA', 'ORCL', 'PLTR']
-    // this.run(this.props.holdings)
+    this.run(this.props.holdings)
   }
 
   getData = async (ticker) => {
@@ -43,37 +43,68 @@ class SmallRich extends React.Component {
     })
   }
 
-  // grab = async (stock) => {
-  //   let res = await Tradier.tradierHistory(stock)
-  //   return res.data.history.day.slice(-30).map(item => [item.date, item.close])
-  // }
+  grab = async (stock) => {
+    let response = await Tradier.tradierHistory(stock)
+    let array = response.data.history.day.slice(-2).map(item => [item.date, item.close]) // change back to -30
+    return Promise.all(array).then(res => res)
+  }
 
-  // run = (array) => {
-  //   let allStats = []
-  //   for (let i = 0; i < array.length; i++) {
-  //     this.grab(array[i]).then(res => allStats.push(res))
-  //   }
-  //   let dates = []
-  //   console.log(allStats)
-  //   Promise.all(allStats).then(() => console.log('your array: ', allStats.length))
-  //   for (let m = 0; m < 30; m++) { // figure out allStats[0].length
-  //     // dates.push([allStats[0][m][0]])
-  //   }
+  run = async (array) => {
+    let allStats = []
 
-  //   // console.log(dates)
+    for (let i = 0; i < array.length; i++) {
+      await this.grab(array[i]).then(res => {
+        allStats.push(res)
+      })
+    }
 
-  //   let averages = []
+    // console.log('allStats.length: ', allStats.length)
+    // console.log('allStats[0]: ', allStats[0])
+   
+    let dates = []
+        for (let m = 0; m < allStats[0].length; m++) { // figure out allStats[0].length
+      dates.push([allStats[0][m][0]])
+    }
 
-  //   for (let j = 0; j < allStats[0].length; j++) { //days
-  //     let day = 0
-  //     for (let k = 0; k < allStats.length; k++) { //stocks
-  //       day += allStats[k][j][1]
-  //     }
-  //     // averages.push([allStats[k][0][0], day / allStats.length])
-  //   }
-  //   // console.log(averages)
-  // }
+    let averages = []
 
+    for (let j = 0; j < allStats[0].length; j++) { //days
+      let day = 0
+      let calendar = ''
+      for (let k = 0; k < allStats.length; k++) { //stocks
+        day += allStats[k][j][1]
+        calendar = allStats[k][j][0]
+        // if (k === 0) days.push(allStats[k][j][0])
+      }
+      // console.log(day)
+      averages.push([calendar, day / allStats.length])
+    }
+
+    console.log('averages: ', averages)
+    // console.log('days: ', days)
+    let finished = averages.map(item => ({"value": [new Date(item[0]).getTime(), item[1]]}))
+
+    let minX = Math.min(...finished.map(item => item.value[0]))
+    let maxX = Math.max(...finished.map(item => item.value[0]))
+    let minY = Math.min(...finished.map(item => item.value[1]))
+    let maxY = Math.max(...finished.map(item => item.value[1]))
+
+    let levels = []
+    for (let i = Math.floor(finished.length * .2); i < finished.length; i += Math.floor(finished.length * .19)) {
+      levels.unshift(finished[i].value[1].toPrecision(3))
+    }
+    let zones = []
+    for (let i = 1; i < finished.length; i += 30) {
+      zones.push(new Date(finished[i].value[0]).toLocaleString('default', { month: 'long' }))
+    }
+
+    this.setState({
+      data: finished,
+      bounds: [[minX, maxX], [minY, maxY]],
+      yAxis: levels,
+      xAxis: zones
+    })
+  }
 
 
   labelY = () => {

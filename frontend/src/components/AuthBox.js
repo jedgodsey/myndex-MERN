@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { Button, Card, CardHeader, CardFooter, CardBody, FormField, TextInput, Box } from 'grommet';
-import { Hide, View } from 'grommet-icons';
+// import { Hide, View } from 'grommet-icons';
 
 const AuthBox = () => {
   const [registerUsername, setRegisterUsername] = useState('')
