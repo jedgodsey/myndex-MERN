@@ -45,7 +45,7 @@ class SmallRich extends React.Component {
 
   grab = async (stock) => {
     let response = await Tradier.tradierHistory(stock)
-    let array = response.data.history.day.slice(-2).map(item => [item.date, item.close]) // change back to -30
+    let array = response.data.history.day.slice(-30).map(item => [item.date, item.close]) // change back to -30
     return Promise.all(array).then(res => res)
   }
 
@@ -89,13 +89,15 @@ class SmallRich extends React.Component {
     let minY = Math.min(...finished.map(item => item.value[1]))
     let maxY = Math.max(...finished.map(item => item.value[1]))
 
+    console.log(finished)
+
     let levels = []
     for (let i = Math.floor(finished.length * .2); i < finished.length; i += Math.floor(finished.length * .19)) {
       levels.unshift(finished[i].value[1].toPrecision(3))
     }
     let zones = []
-    for (let i = 1; i < finished.length; i += 30) {
-      zones.push(new Date(finished[i].value[0]).toLocaleString('default', { month: 'long' }))
+    for (let i = 1; i < finished.length; i++) {
+      zones.push(new Date(finished[i].value[0]).toLocaleString('default', { weekday: 'short' }).slice(0,1))
     }
 
     this.setState({
@@ -143,7 +145,7 @@ class SmallRich extends React.Component {
 
     // console.log(this.props)
     return (
-        <Box align="center" width='medium' height='small'>
+        <Box align="center" width='medium' height='small' flex='true'>
           <Box
             direction="row"
             justify="between"

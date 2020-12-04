@@ -4,7 +4,6 @@ const db = require("../models");
 
 const display = (req, res, next) => { // why next?
   passport.authenticate('local', (err, user, info) => {
-    console.log('display req.user: ', req.user)
     db.Myndex.find({})
     .then(foundIndeces => {
       res.json({indeces: foundIndeces})
