@@ -1,8 +1,8 @@
 // imports
+require('dotenv').config()
 const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
-require('dotenv').config()
 const db = require('./models');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
@@ -10,7 +10,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 
-const port = process.env.PORT || 4000; //add ENV?
+const port = process.env.PORT// || 4000; //add ENV?
 const app = express();
 
 const corsOptions = {
