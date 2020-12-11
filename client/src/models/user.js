@@ -1,5 +1,11 @@
 import axios from 'axios';
-const url = `http://localhost:4000/users`
+
+let url;
+if (process.env.NODE_ENV === 'production') {
+  url = `https://secure-lowlands-61590.herokuapp.com/users`;
+} else {
+  url = 'http://localhost:4000/users';
+}
 
 class UserModel {
 

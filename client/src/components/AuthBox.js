@@ -11,6 +11,13 @@ const AuthBox = () => {
   const [data, setData] = useState(null)
   const [reveal, setReveal] = React.useState(false);
 
+  let url;
+if (process.env.NODE_ENV === 'production') {
+  url = `https://secure-lowlands-61590.herokuapp.com/`;
+} else {
+  url = 'http://localhost:4000/';
+}
+
   const register = () => {
     axios({
       method: 'POST',
@@ -19,7 +26,7 @@ const AuthBox = () => {
         password: registerPassword
       },
       withCredentials: true,
-      url: 'http://localhost:4000/register'
+      url: `${url}register`
     })
       .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
@@ -32,7 +39,7 @@ const AuthBox = () => {
         password: loginPassword
       },
       withCredentials: true,
-      url: 'http://localhost:4000/login'
+      url: `${url}login`
     })
       .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   };
@@ -41,7 +48,7 @@ const AuthBox = () => {
     axios({
       method: 'GET',
       withCredentials: true,
-      url: 'http://localhost:4000/getUser'
+      url: `${url}getUser`
     }).then(res => {
       setData(res.data)
       console.log(res.data)
@@ -52,7 +59,7 @@ const AuthBox = () => {
     axios({
       method: 'GET',
       withCredentials: true,
-      url: 'http://localhost:4000/logout'
+      url: `${url}logout`
     }).then(res => res.status === 200 ? window.location.href = '/' : null)
   }
 

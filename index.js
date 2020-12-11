@@ -10,8 +10,23 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 
-const port = process.env.PORT || 4000; //add ENV?
+const port = process.env.PORT || 4000;
 const app = express();
+
+
+// from tutorial at https://jarednielsen.com/mern-deploy-heroku/
+app.get('/', (req, res) => {
+  res.send("Hello World!");
+});
+
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static("client/build"));
+//   const path = require('path');
+//   app.get('*', (req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+//   });
+// }
+//---------------------------------------------------------
 
 const corsOptions = {
   origin: 'http://localhost:3000',

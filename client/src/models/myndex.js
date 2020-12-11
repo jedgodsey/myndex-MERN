@@ -1,4 +1,9 @@
-const url = `http://localhost:4000/myndeces`
+let url;
+if (process.env.NODE_ENV === 'production') {
+  url = `https://secure-lowlands-61590.herokuapp.com/myndeces`;
+} else {
+  url = 'http://localhost:4000/myndeces';
+}
 
 class MyndexModel {
   static all() {
