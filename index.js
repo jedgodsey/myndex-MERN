@@ -15,10 +15,6 @@ const app = express();
 
 
 // from tutorial at https://jarednielsen.com/mern-deploy-heroku/
-app.get('/', (req, res) => {
-  res.send("Hello World!");
-});
-
 // if (process.env.NODE_ENV === "production") {
 //   app.use(express.static("client/build"));
 //   const path = require('path');
@@ -28,8 +24,15 @@ app.get('/', (req, res) => {
 // }
 //---------------------------------------------------------
 
+let origin;
+if (process.env.NODE_ENV === 'production') {
+  origin = 'https://lucuberate.herokuapp.com';
+} else {
+  origin = 'http://localhost:3000';
+}
+
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: origin,
   credentials: true
 }
 
