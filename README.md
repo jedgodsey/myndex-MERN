@@ -36,5 +36,3 @@ Myndex uses MongoDB, Express, React and Node.js to give users the clarity in sec
 
 ## Database Model
 ![mvpDatabase](./public/images/Mynex-ERD-MVP.svg)
-
-xxxxxxxxxxxxxxxxxxxxxxxxxxxx
