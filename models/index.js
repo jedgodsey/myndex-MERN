@@ -16,6 +16,6 @@ mongoose.connection.on('error', (error) => {
 })
 
 module.exports = {
-  Myndex: require('./Myndex'),
+  Myndex: require('./myndex'),
   User: require('./User')
 }
