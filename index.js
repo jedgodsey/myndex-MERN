@@ -10,7 +10,7 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 
-const port = process.env.PORT// || 4000; //add ENV?
+const port = process.env.PORT || 4000; //add ENV?
 const app = express();
 
 const corsOptions = {
