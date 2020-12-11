@@ -17,3 +17,5 @@ const myndexSchema = new mongoose.Schema({
 const Index = mongoose.model('Index', myndexSchema);
 
 module.exports = Index;
+
+// we will see if name change takes.
