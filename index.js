@@ -7,22 +7,12 @@ const db = require('./models');
 const cookieParser = require('cookie-parser');
 const bcrypt = require('bcryptjs');
 const session = require('express-session');
+const path = require('path')
 const passport = require('passport');
 const passportLocal = require('passport-local').Strategy;
 
 const port = process.env.PORT || 4000;
 const app = express();
-
-
-// from tutorial at https://jarednielsen.com/mern-deploy-heroku/
-// if (process.env.NODE_ENV === "production") {
-//   app.use(express.static("client/build"));
-//   const path = require('path');
-//   app.get('*', (req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-//   });
-// }
-//---------------------------------------------------------
 
 let origin;
 if (process.env.NODE_ENV === 'production') {
