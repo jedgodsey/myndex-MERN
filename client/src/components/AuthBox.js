@@ -8,8 +8,6 @@ const AuthBox = () => {
   const [registerPassword, setRegisterPassword] = useState('')
   const [loginUsername, setLoginUsername] = useState('')
   const [loginPassword, setLoginPassword] = useState('')
-  const [data, setData] = useState(null)
-  const [reveal, setReveal] = React.useState(false);
 
   let url;
 if (process.env.NODE_ENV === 'production') {
@@ -32,6 +30,7 @@ if (process.env.NODE_ENV === 'production') {
   }
 
   const login = () => {
+    console.log('hitting login function')
     axios({
       method: 'POST',
       data: {
@@ -44,24 +43,24 @@ if (process.env.NODE_ENV === 'production') {
       .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   };
 
-  const getUser = () => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${url}getUser`
-    }).then(res => {
-      setData(res.data)
-      console.log(res.data)
-    });
-  };
+  // const getUser = () => {
+  //   axios({
+  //     method: 'GET',
+  //     withCredentials: true,
+  //     url: `${url}getUser`
+  //   }).then(res => {
+  //     setData(res.data)
+  //     console.log(res.data)
+  //   });
+  // };
 
-  const logOut = () => {
-    axios({
-      method: 'GET',
-      withCredentials: true,
-      url: `${url}logout`
-    }).then(res => res.status === 200 ? window.location.href = '/' : null)
-  }
+  // const logOut = () => {
+  //   axios({
+  //     method: 'GET',
+  //     withCredentials: true,
+  //     url: `${url}logout`
+  //   }).then(res => res.status === 200 ? window.location.href = '/' : null)
+  // }
 
   return (
     <Box gap='large'>
@@ -69,10 +68,10 @@ if (process.env.NODE_ENV === 'production') {
         <CardHeader pad="small">Sign In...</CardHeader>
         <CardBody pad="medium">
           <FormField name="name" htmlfor="text-input-id" label="Name">
-            <TextInput id="text-input-id" name="name" onChange={e => setLoginUsername(e.target.value)} />
+            <TextInput id="login-name" name="login-name" onChange={e => setLoginUsername(e.target.value)} />
           </FormField>
-          <FormField name="password" htmlfor="text-input-id" label='Password'>
-              <TextInput id="text-input-id" type={reveal ? 'text' : 'password'} name="name" onChange={e => setLoginPassword(e.target.value)} />
+          <FormField name="login-password" htmlfor="text-input-id" label='Password'>
+              <TextInput id="login-password" type='password' name="name" onChange={e => setLoginPassword(e.target.value)} />
           </FormField>
 
           <Box direction="row" gap="medium">
@@ -87,15 +86,15 @@ if (process.env.NODE_ENV === 'production') {
       <Card height="medium" width="medium" background="light-1" elevation="medium">
       <CardHeader pad="small">..or Sign Up!</CardHeader>
         <CardBody pad="medium">
-          <FormField name="name" htmlfor="text-input-id" label="Name">
-            <TextInput id="text-input-id" name="name" onChange={e => setRegisterUsername(e.target.value)} />
+          <FormField name="register-name" htmlfor="text-input-id" label="Name">
+            <TextInput id="register-name" name="name" onChange={e => setRegisterUsername(e.target.value)} />
           </FormField>
-          <FormField name="password" htmlfor="text-input-id" label="Password">
-              <TextInput id="text-input-id" type={reveal ? 'text' : 'password'} name="name" onChange={e => setRegisterPassword(e.target.value)} />
+          <FormField name="register-password" htmlfor="text-input-id" label="Password">
+              <TextInput id="register-password" type='password' name="name" onChange={e => setRegisterPassword(e.target.value)} />
           </FormField>
-          <FormField name="password" htmlfor="text-input-id" label="Re-Enter Password">
-              <TextInput id="text-input-id" type={reveal ? 'text' : 'password'} name="name" onChange={e => setRegisterPassword(e.target.value)} />
-          </FormField>
+          {/* <FormField name="password" htmlfor="text-input-id" label="Re-Enter Password">
+              <TextInput id="text-input-id" type='password' name="name" onChange={e => setRegisterPassword(e.target.value)} />
+          </FormField> */}
           <Box direction="row" gap="medium">
             <Button type="submit" primary label="Submit" onClick={register} />
           </Box>

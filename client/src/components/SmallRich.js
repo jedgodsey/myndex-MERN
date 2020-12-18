@@ -80,16 +80,12 @@ class SmallRich extends React.Component {
       averages.push([calendar, day / allStats.length])
     }
 
-    console.log('averages: ', averages)
-    // console.log('days: ', days)
     let finished = averages.map(item => ({"value": [new Date(item[0]).getTime(), item[1]]}))
 
     let minX = Math.min(...finished.map(item => item.value[0]))
     let maxX = Math.max(...finished.map(item => item.value[0]))
     let minY = Math.min(...finished.map(item => item.value[1]))
     let maxY = Math.max(...finished.map(item => item.value[1]))
-
-    console.log(finished)
 
     let levels = []
     for (let i = Math.floor(finished.length * .2); i < finished.length; i += Math.floor(finished.length * .19)) {
@@ -108,7 +104,6 @@ class SmallRich extends React.Component {
     })
   }
 
-
   labelY = () => {
     return this.state.yAxis.map((y, index) => {
       const first = index === 0;
@@ -122,7 +117,7 @@ class SmallRich extends React.Component {
         align = 'center';
       }
       return (
-        <Box key={y} direction="row" align={align}>
+        <Box key={index} direction="row" align={align}>
           <Box pad={{ horizontal: 'small' }}>
             <Text>{y}</Text>
           </Box>
@@ -133,7 +128,7 @@ class SmallRich extends React.Component {
   }
 
   labelX = () => {
-    return this.state.xAxis.map(x => (<Text key={x}>{x}</Text>))
+    return this.state.xAxis.map((x, index) => (<Text key={index}>{x}</Text>))
   }
   render() {
     const chartProps = {
