@@ -2,30 +2,17 @@ const express = require('express');
 const passport = require('passport');
 const db = require("../models");
 
-const display = (req, res, next) => { // why next?
-  passport.authenticate('local', (err, user, info) => {
-    db.Myndex.find({})
-    .then(foundIndeces => {
-      res.json({indeces: foundIndeces})
+const display = (req, res) => {
+  db.Myndex.find({})
+    .then(foundIndices => {
+      console.log('your indices: ', foundIndices)
+      return res.json({indices: foundIndices})
     })
     .catch(err => {
-      console.log('myndex index error: ', err)
+      console.log('myndex display error: ', err)
       res.json({Error: 'unable to get your data'})
     })
-  })(req, res, next) // why (req, res, next) here?
-}
-
-// const display = (req, res) => {
-//   console.log('your req: ', req)
-//   db.Myndex.find({})
-//     .then(foundIndeces => {
-//       res.json({indeces: foundIndeces})
-//     })
-//     .catch(err => {
-//       console.log('myndex index error: ', err)
-//       res.json({Error: 'unable to get your data'})
-//     })
-// };
+};
 
 const show = (req, res) => {
   db.Myndex.findById(req.params.id)
@@ -33,13 +20,12 @@ const show = (req, res) => {
       res.json({index: foundMyndex})
     })
     .catch(err => {
-      console.log('error in show game: ', err)
+      console.log('error in show myndex: ', err)
       res.json({Error: 'unable to get data'})
     })
 };
 
 const create = (req, res) => {
-  console.log('create req.user: ', req.user)
   db.Myndex.create(req.body)
     .then(savedMyndex => {
       console.log(savedMyndex)

@@ -9,7 +9,7 @@ class Home extends React.Component {
     return(
       <Box direction="row-responsive" gap="large">
         {/* <Guide /> */}
-        <Rich />
+        {/* <Rich /> */}
         <AuthBox />
       </Box>
     )
