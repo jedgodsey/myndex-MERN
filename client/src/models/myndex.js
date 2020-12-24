@@ -7,6 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 class MyndexModel {
   static all() {
+    console.log('in myndexmodel all')
     return fetch(url, {credentials: 'include'})
       .then(res => res.json())
       .catch(err => {

@@ -1,13 +1,25 @@
 const db = require("../models");
 
-const create = (req, res) => {
-  db.User.create(req.body)
-    .then(newUser => {
-      res.json({user: newUser})
-    })
-    .catch(err => {
-      console.log('error in create user: ', err)
-      res.json({Error: 'unable to create data'})
+const authenticate = (req, res) => {
+  db.User.findOne({email: req.body.email})
+    .then(foundUser => {
+      if (foundUser) {
+        db.User.findByIdAndUpdate(foundUser.id, req.body)
+          .then(updatedUser => res.json({user: updatedUser}))
+          .catch(err => {
+            console.log('error in update user: ', err)
+            res.json({Error: 'unable to update data'})
+          })
+      } else {
+        db.User.create(req.body)
+          .then(newUser => {
+            res.json({user: newUser})
+          })
+          .catch(err => {
+            console.log('error in create user: ', err)
+            res.json({Error: 'unable to create data'})
+          })
+      }
     })
 };
 
@@ -22,17 +34,8 @@ const show = (req, res) => {
     })
 };
 
-const update = (req, res) => {
-  db.Myndex.findByIdAndUpdate(req.params.id, req.body, {new: true})
-    .then(updatedUser => res.json({user: updatedUser}))
-    .catch(err => {
-      console.log('updateuser error: ', err)
-      res.json({Error: 'error updating user'})
-    })
-};
-
 const destroy = (req, res) => {
-  db.Myndex.findByIdAndDelete(req.params.id)
+  db.Myndex.findOneAndDelete({email: req.body.email})  //findByIdAndDelete(req.params.id)
     .then(deletedUser => res.json({user: deletedUser}))
     .catch(err => {
       console.log('deleteuser error: ', err)
@@ -41,8 +44,7 @@ const destroy = (req, res) => {
 };
 
 module.exports = {
-  create,
+  authenticate,
   show,
-  update,
   destroy
 };

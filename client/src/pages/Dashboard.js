@@ -5,18 +5,18 @@ import IndexCard from '../components/IndexCard';
 
 class Dashboard extends React.Component {
   state = {
-    indeces: []
+    indices: []
   }
 
   componentDidMount() {
     MyndexModel.all().then(data => {
-      this.setState({indeces: data.indeces})
+      this.setState({indices: data.indices})
     })
   }
   render() {
     return(
       <Box direction="row" /* wrap="true" flex="true"*/ >
-        {this.state.indeces && this.state.indeces.map((item, i) => <IndexCard index={item} key={i} />)}
+        {this.state.indices && this.state.indices.map((item, i) => <IndexCard index={item} key={i} />)}
       </Box>
     )
   }
