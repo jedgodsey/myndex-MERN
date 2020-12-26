@@ -29,7 +29,6 @@ const create = (req, res) => {
   db.Myndex.create(req.body)
     .then(savedMyndex => {
       console.log(savedMyndex)
-      // res.json({game: savedMyndex})
     })
     .catch(err => {
       console.log('creategame error: ', err)

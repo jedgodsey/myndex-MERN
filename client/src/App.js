@@ -26,9 +26,9 @@ class App extends React.Component {
   
   responseGoogle = (response) => {
     console.log('tokenId: ', response.tokenId);
+    console.log('whole response: ', response)
     UserModel.create(response.profileObj)
-      // .then(data => localStorage.setItem("user", JSON.stringify(data)))
-      .then(data => localStorage.blubber = JSON.stringify(data))
+    this.setState({isLoggedIn: true})
   }
 
   logOut = () => {
@@ -38,7 +38,22 @@ class App extends React.Component {
     // UserModel.logOut(); 
   }
 
+  showLinks = () => {
+    if (this.state.isLoggedIn) {
+      return(
+        <>
+          <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
+          <Link to={`/add`}><Button icon={<AddCircle />} /></Link>
+          <Link to={`/`}><Button icon={<Logout />} /></Link>
+        </>
+      )
+    }
+  }
+
   render() {
+    console.log('cookies: ', document.cookie)
+
+    // csrftoken=pAMUWwhpzGb14Hn3YRsxLBjxK4GR37xzl8pFNtcJ6LfCt9A02neMPUFVCsjnkCYd; G_AUTHUSER_H=0
     return (
       <>
         <Grommet theme={theme}>
@@ -47,7 +62,7 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Login'
               onSuccess={this.responseGoogle}
-              onFailure={this.responseGoogle}
+              onFailure={console.log('login fail')}
               cookiePolicy={'single_host_origin'}
               isSignedIn={true}
             />
@@ -64,9 +79,7 @@ class App extends React.Component {
               The Vision to See What Others Cannot
             </Box>
             <Box direction='row'>
-              <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
-              <Link to={`/add`}><Button icon={<AddCircle />} /></Link>
-              <Link to={`/`}><Button icon={<Logout />} /></Link>
+              {this.showLinks()}
             </Box>
           </AppBar>
           <Box pad="large" height="95vh">
