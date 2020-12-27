@@ -1,6 +1,7 @@
 const db = require("../models");
 
 const authenticate = (req, res) => {
+  console.log('your request user: ', req.user)
   db.User.findOne({email: req.body.email})
     .then(foundUser => {
       if (foundUser) {

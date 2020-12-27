@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
   googleId: String,
   imageUrl: String,
   name: String,
-  givenName: String
+  givenName: String,
+  tokenId: String
 }, {timestaps: true})
 
 module.exports = mongoose.model('User', userSchema);

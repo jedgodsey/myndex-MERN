@@ -25,9 +25,10 @@ class App extends React.Component {
   }
   
   responseGoogle = (response) => {
-    console.log('tokenId: ', response.tokenId);
     console.log('whole response: ', response)
-    UserModel.create(response.profileObj)
+    let vitalInfo = response.profileObj;
+    vitalInfo.tokenId = response.tokenId
+    UserModel.create(vitalInfo)
     this.setState({isLoggedIn: true})
   }
 
