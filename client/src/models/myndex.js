@@ -26,6 +26,7 @@ class MyndexModel {
   }
 
   static create(newMyndex) {
+    console.log('user here: ', document.cookie)
     return fetch(url, {
       method: 'POST',
       headers: {'Content-Type': 'application/json'},

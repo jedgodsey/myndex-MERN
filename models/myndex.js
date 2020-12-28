@@ -11,7 +11,8 @@ const myndexSchema = new mongoose.Schema({
     type: String,
     default: 'Even'
   },
-  startDate: Date
+  startDate: Date,
+  maker: String
 }, {timestaps: true})
 
 const Myndex = mongoose.model('Myndex', myndexSchema);

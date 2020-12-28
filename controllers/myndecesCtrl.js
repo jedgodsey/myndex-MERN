@@ -25,7 +25,10 @@ const show = (req, res) => {
 };
 
 const create = (req, res) => {
-  db.Myndex.create(req.body)
+  let freshIndex = req.body
+  freshIndex.maker = req.headers.cookie
+  console.log('cookies: ', req.headers.cookie)
+  db.Myndex.create(freshIndex)
     .then(savedMyndex => {
       console.log(savedMyndex)
     })

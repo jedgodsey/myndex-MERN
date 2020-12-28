@@ -4,8 +4,8 @@ const express = require("express");
 const cors = require("cors");
 const routes = require("./routes");
 const db = require('./models');
-const bcrypt = require('bcryptjs');
 const path = require('path');
+const session = require('express-session')
 
 const { OAuth2Client } = require('google-auth-library')
 
@@ -28,12 +28,23 @@ const corsOptions = {
 
 // middleware - JSON parsing
 app.use(express.json());
+// app.use(session({
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: true, // what does this do?
+//   cookie: {
+//       httpOnly: true,
+//       expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
+//       maxAge: 1000 * 60 * 60 * 24 * 7
+//   }
+// }));
 app.use(cors(corsOptions));
 
 //codamn
 const googleClient = new OAuth2Client(CLIENT_ID) //{clientId: CLIENT_ID})
 
 app.post('/login', async (req, res) => {
+  console.log('cookies: ', req.headers.cookie)
   const test = await verifyGoogleLogin(req.body.tokenObj.id_token)
   if (!test) {
     console.error('failed login with google')
