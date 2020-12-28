@@ -27,8 +27,9 @@ class App extends React.Component {
   responseGoogle = (response) => {
     console.log('whole response: ', response)
     let vitalInfo = response.profileObj;
-    vitalInfo.tokenId = response.tokenId
-    UserModel.create(vitalInfo)
+    vitalInfo.tokenObj = response.tokenObj
+    UserModel.test(vitalInfo)
+    // UserModel.create(vitalInfo)
     this.setState({isLoggedIn: true})
   }
 
@@ -52,9 +53,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('cookies: ', document.cookie)
-
-    // csrftoken=pAMUWwhpzGb14Hn3YRsxLBjxK4GR37xzl8pFNtcJ6LfCt9A02neMPUFVCsjnkCYd; G_AUTHUSER_H=0
     return (
       <>
         <Grommet theme={theme}>
@@ -63,7 +61,7 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Login'
               onSuccess={this.responseGoogle}
-              onFailure={console.log('login fail')}
+              onFailure={() => console.log('login fail')}
               cookiePolicy={'single_host_origin'}
               isSignedIn={true}
             />
@@ -71,7 +69,7 @@ class App extends React.Component {
               clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
               buttonText='Logout'
               onLogoutSuccess={this.logOut}
-              onFailure={console.log('logout failed!')}
+              onFailure={() => console.log('logout failed!')}
             />
             <Box>
               <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>

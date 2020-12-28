@@ -5,7 +5,6 @@ const db = require("../models");
 const display = (req, res) => {
   db.Myndex.find({})
     .then(foundIndices => {
-      console.log('your indices: ', foundIndices)
       return res.json({indices: foundIndices})
     })
     .catch(err => {

@@ -29,6 +29,17 @@ class UserModel {
       // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
+  static test(newUser) {
+    return axios({
+      method: 'POST',
+      data: newUser,
+      withCredentials: true,
+      url: 'http://localhost:4000/login'
+    })
+      .then(res => res) //res.json())
+      // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
+  }
+
   static login(newUser) {
     return fetch(url, {
       method: 'POST',

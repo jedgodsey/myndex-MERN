@@ -7,6 +7,10 @@ const db = require('./models');
 const bcrypt = require('bcryptjs');
 const path = require('path');
 
+const { OAuth2Client } = require('google-auth-library')
+
+const CLIENT_ID = '596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
+
 const port = process.env.PORT || 4000;
 const app = express();
 
@@ -25,6 +29,33 @@ const corsOptions = {
 // middleware - JSON parsing
 app.use(express.json());
 app.use(cors(corsOptions));
+
+//codamn
+const googleClient = new OAuth2Client(CLIENT_ID) //{clientId: CLIENT_ID})
+
+app.post('/login', async (req, res) => {
+  const test = await verifyGoogleLogin(req.body.tokenObj.id_token)
+  if (!test) {
+    console.error('failed login with google')
+  }
+  console.log('google signin successful')
+
+  res.json({ status: 'okay'})
+})
+
+async function verifyGoogleLogin(token) {
+  const ticket = await googleClient.verifyIdToken({
+    audience: CLIENT_ID,
+    idToken: token
+  })
+
+  const payload = ticket.getPayload()
+
+  if (payload) {
+    return payload
+  }
+  return null
+}
 
 // middleware - API routes
 app.use("/myndeces", routes.myndeces);
