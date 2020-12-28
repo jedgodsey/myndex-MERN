@@ -1,9 +1,8 @@
-const express = require('express');
-const passport = require('passport');
+const utility = require('../utility')
 const db = require("../models");
 
 const display = (req, res) => {
-  db.Myndex.find({})
+  db.Myndex.find({maker: utility.divideString(req.headers.cookie)})
     .then(foundIndices => {
       return res.json({indices: foundIndices})
     })
@@ -26,8 +25,7 @@ const show = (req, res) => {
 
 const create = (req, res) => {
   let freshIndex = req.body
-  freshIndex.maker = req.headers.cookie
-  console.log('cookies: ', req.headers.cookie)
+  freshIndex.maker = utility.divideString(req.headers.cookie)
   db.Myndex.create(freshIndex)
     .then(savedMyndex => {
       console.log(savedMyndex)
