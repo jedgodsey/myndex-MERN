@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from 'react-router-dom';
 import { Box, TextInput, Button, Text, Card } from "grommet";
 import { Search } from 'grommet-icons';
 import Tag from '../components/Tag';
@@ -6,36 +7,21 @@ import Tradier from '../models/tradier';
 import MyndexModel from '../models/myndex';
 
 const AddIndex = () => {
-  // state = {
-  //   query: '',
-  //   list: [],
-  //   selections: [],
-  //   name: ''
-  // };
-
+  const history = useHistory()
   const [query, setQuery] = useState('')
   const [list, setList] = useState([])
   const [selections, setSelections] = useState([])
   const [name, setName] = useState([])
 
+  useEffect(() => {
+    if (query) Tradier.populate(query)
+      .then(data => setList(data))
+  }, [query])
+
   //---------------- my functions ------------------
   const handleStockChange = (event) => {
     setQuery(event.target.value)
-    Tradier.populate(query)
-      .then(data => setList(data))
   }
-
-  // handleStockChange = (event) => {
-  //   this.setState({
-  //     query: event.target.value
-  //   }, () => {
-  //     Tradier.populate(this.state.query)
-  //       .then(data => {
-  //         this.setState({list: data})
-  //       })
-  //   })
-  //   console.log('my query: ', this.state.query)
-  // }
 
   const handleNameChange = (event) => {
     setName(event.target.value)
@@ -53,6 +39,7 @@ const AddIndex = () => {
       indexName: name,
       holdings: selections
     })
+    history.push("/dashboard")
   }
 
   //------------------grommet functions--------------------
@@ -96,41 +83,39 @@ const AddIndex = () => {
     }
   };
 
-  // render() {
-    return (
-      <Card height="large" width="xlarge" background="light-1" elevation="medium">
-        <Box margin="large" padding="medium">
-          <strong>Create a New Index</strong>
-          <TextInput
-                // plain={true}
-                placeholder="Enter The Name of Your Index"
-                // type="search"
-                value={name}
-                onChange={handleNameChange}
-                // name="indexName"
-              />
-          <Box direction="row" border="all">
-            {selections.length > 0 && renderTags(selections, onRemoveTag)}
-            <Box direction="row">
-              <Search color="brand" />
-              <TextInput
-                plain={true}
-                placeholder="Search and Select Companies"
-                type="search"
-                value={query}
-                onChange={handleStockChange}
-                // name="ticker"
-                suggestions={renderSuggestions() || []}
-              />
-            </Box>
-          </Box>
-          <Box align="start" pad="medium">
-            <Button label="Create" onClick={addIndex} />
+  return (
+    <Card height="large" width="xlarge" background="light-1" elevation="medium">
+      <Box margin="large" padding="medium">
+        <strong>Create a New Index</strong>
+        <TextInput
+              // plain={true}
+              placeholder="Enter The Name of Your Index"
+              // type="search"
+              value={name}
+              onChange={handleNameChange}
+              // name="indexName"
+            />
+        <Box direction="row" border="all">
+          {selections.length > 0 && renderTags(selections, onRemoveTag)}
+          <Box direction="row">
+            <Search color="brand" />
+            <TextInput
+              plain={true}
+              placeholder="Search and Select Companies"
+              type="search"
+              value={query}
+              onChange={handleStockChange}
+              // name="ticker"
+              suggestions={renderSuggestions() || []}
+            />
           </Box>
         </Box>
-      </Card>
-    );
-  // }
+        <Box align="start" pad="medium">
+          <Button label="Create" onClick={addIndex} />
+        </Box>
+      </Box>
+    </Card>
+  );
 }
 
 export default AddIndex;

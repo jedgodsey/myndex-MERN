@@ -45,7 +45,7 @@ const App = () => {
         <>
           <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
           <Link to={`/add`}><Button icon={<AddCircle />} /></Link>
-          <Link to={`/`}><Button icon={<Logout />} /></Link>
+          <Link to={`/`}><Button icon={<Home />} /></Link>
           <GoogleLogout
             clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
             buttonText='Logout'
