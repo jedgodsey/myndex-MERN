@@ -26,7 +26,7 @@ class UserModel {
       url: url
     })
       .then(res => res) //res.json())
-      // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
   static test(newUser) {
@@ -36,7 +36,7 @@ class UserModel {
       withCredentials: true,
       url: 'http://localhost:4000/login'
     })
-      .then(res => res) //res.json())
+      // .then(res => console.log(res.status == 200)) //res.json())
       // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
