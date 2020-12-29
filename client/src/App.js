@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Route, Switch, Link } from 'react-router-dom';
+import { Route, Switch, Link, useHistory } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box, Footer, Button } from 'grommet';
 import { Logout, BarChart, AddCircle, Google } from 'grommet-icons';
@@ -24,6 +24,7 @@ const theme = {
 //     isLoggedIn: false
 //   }
 const App = () => {
+  let history = useHistory();
 
   const [user, setUser] = useState(false)
   
@@ -35,12 +36,14 @@ const App = () => {
     // UserModel.create(vitalInfo)
     // this.setState({isLoggedIn: true})
     setUser(true)
+    history.push("/dashboard")
   }
 
   const logOut = () => {
     // this.setState({isLoggedIn: false})
     setUser(false)
     console.log('logout successful')
+    history.push("/")
   }
 
   const showLinks = () => {
