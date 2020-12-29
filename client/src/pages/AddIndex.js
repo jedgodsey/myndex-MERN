@@ -1,63 +1,68 @@
-import React from "react";
+import React, { useState } from "react";
 import { Box, TextInput, Button, Text, Card } from "grommet";
 import { Search } from 'grommet-icons';
 import Tag from '../components/Tag';
 import Tradier from '../models/tradier';
 import MyndexModel from '../models/myndex';
 
-class AddIndex extends React.Component {
-  state = {
-    query: '',
-    list: [],
-    selections: [],
-    name: ''
-  };
+const AddIndex = () => {
+  // state = {
+  //   query: '',
+  //   list: [],
+  //   selections: [],
+  //   name: ''
+  // };
+
+  const [query, setQuery] = useState('')
+  const [list, setList] = useState([])
+  const [selections, setSelections] = useState([])
+  const [name, setName] = useState([])
 
   //---------------- my functions ------------------
-  handleStockChange = (event) => {
-    this.setState({
-      query: event.target.value
-    }, () => {
-      Tradier.populate(this.state.query)
-        .then(data => {
-          this.setState({list: data})
-        })
-    })
-    console.log('my query: ', this.state.query)
+  const handleStockChange = (event) => {
+    setQuery(event.target.value)
+    Tradier.populate(query)
+      .then(data => setList(data))
   }
 
-  handleNameChange = (event) => {
-    this.setState({
-      name: event.target.value
-    })
+  // handleStockChange = (event) => {
+  //   this.setState({
+  //     query: event.target.value
+  //   }, () => {
+  //     Tradier.populate(this.state.query)
+  //       .then(data => {
+  //         this.setState({list: data})
+  //       })
+  //   })
+  //   console.log('my query: ', this.state.query)
+  // }
+
+  const handleNameChange = (event) => {
+    setName(event.target.value)
   }
 
-  submitTicker = (ticker) => {
-    let newTicker = this.state.selections.concat(ticker)
-    this.setState({
-      selections: newTicker,
-      query: '',
-      list: []
-    })
+  const submitTicker = (ticker) => {
+    let newTicker = selections.concat(ticker)
+    setSelections(newTicker)
+    setQuery('')
+    setList([])
   }
 
-  addIndex = (event) => {
+  const addIndex = (event) => {
     MyndexModel.create({
-      indexName: this.state.name,
-      holdings: this.state.selections
+      indexName: name,
+      holdings: selections
     })
   }
 
   //------------------grommet functions--------------------
-  onRemoveTag = index => {
-    const newTags = [...this.state.selections];
+  const onRemoveTag = index => {
+    const newTags = [...selections];
     newTags.splice(index, 1);
-    this.setState({
-      selections: newTags
-    });
+    setSelections(newTags)
   };
 
-  renderTags = (tags, onRemove) => {
+  const renderTags = (tags, onRemove) => {
     return (
       <Box direction="row">
         {tags.map((tag, index) => (
@@ -69,9 +74,9 @@ class AddIndex extends React.Component {
     );
   };
 
-  renderSuggestions = () => {
-    if (this.state.list && this.state.query) {
-      return this.state.list.map((item, index, list) => ({
+  const renderSuggestions = () => {
+    if (list && query) {
+      return list.map((item, index, list) => ({
         label: (
           <Box
             direction="row"
@@ -79,7 +84,7 @@ class AddIndex extends React.Component {
             gap="small"
             border={index < list.length - 1 ? 'bottom' : undefined}
             pad="small"
-            onClick={() => this.submitTicker(item.symbol)}
+            onClick={() => submitTicker(item.symbol)}
           >
             <Text>
               <strong>{`${item.symbol}: ${item.description}`}</strong>
@@ -91,7 +96,7 @@ class AddIndex extends React.Component {
     }
   };
 
-  render() {
+  // render() {
     return (
       <Card height="large" width="xlarge" background="light-1" elevation="medium">
         <Box margin="large" padding="medium">
@@ -100,32 +105,32 @@ class AddIndex extends React.Component {
                 // plain={true}
                 placeholder="Enter The Name of Your Index"
                 // type="search"
-                value={this.state.name}
-                onChange={this.handleNameChange}
+                value={name}
+                onChange={handleNameChange}
                 // name="indexName"
               />
           <Box direction="row" border="all">
-            {this.state.selections.length > 0 && this.renderTags(this.state.selections, this.onRemoveTag)}
+            {selections.length > 0 && renderTags(selections, onRemoveTag)}
             <Box direction="row">
               <Search color="brand" />
               <TextInput
                 plain={true}
                 placeholder="Search and Select Companies"
                 type="search"
-                value={this.state.query}
-                onChange={this.handleStockChange}
+                value={query}
+                onChange={handleStockChange}
                 // name="ticker"
-                suggestions={this.renderSuggestions() || []}
+                suggestions={renderSuggestions() || []}
               />
             </Box>
           </Box>
           <Box align="start" pad="medium">
-            <Button label="Create" onClick={this.addIndex} />
+            <Button label="Create" onClick={addIndex} />
           </Box>
         </Box>
       </Card>
     );
-  }
+  // }
 }
 
 export default AddIndex;

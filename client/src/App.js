@@ -19,10 +19,6 @@ const theme = {
   },
 };
 
-// class App extends React.Component {
-//   state = {
-//     isLoggedIn: false
-//   }
 const App = () => {
   let history = useHistory();
 
@@ -33,14 +29,11 @@ const App = () => {
     let vitalInfo = response.profileObj;
     vitalInfo.tokenObj = response.tokenObj
     UserModel.test(vitalInfo)
-    // UserModel.create(vitalInfo)
-    // this.setState({isLoggedIn: true})
     setUser(true)
     history.push("/dashboard")
   }
 
   const logOut = () => {
-    // this.setState({isLoggedIn: false})
     setUser(false)
     console.log('logout successful')
     history.push("/")
@@ -58,8 +51,6 @@ const App = () => {
             buttonText='Logout'
             onLogoutSuccess={logOut}
             onFailure={() => console.log('logout failed!')}
-            // ux_mode='redirect'
-            // redirectUri={'/'}
             render={renderProps => (
               <Logout onClick={renderProps.onClick} disabled={renderProps.disabled} />
             )}
@@ -75,8 +66,6 @@ const App = () => {
         onFailure={() => console.log('login fail')}
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
-        // ux_mode='redirect'
-        // redirectUri={'/dashboard/'}
         render={renderProps => (
           <Google onClick={renderProps.onClick} disabled={renderProps.disabled} />
         )}
@@ -84,33 +73,31 @@ const App = () => {
     )
   }
 
-  // render() {
-    return (
-      <>
-        <Grommet theme={theme}>
-          <AppBar>
-            <Box>
-              <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
-                MyNdex
-              </Heading></Link>
-              The Vision to See What Others Cannot
-            </Box>
-            <Box direction='row'>
-              {showLinks()}
-            </Box>
-          </AppBar>
-          <Box pad="large" height="95vh">
-            <Switch>
-              <Route path='/add' component={AddIndex} />
-              <Route path='/dashboard' component={Dashboard} />
-              <Route path='/' component={Home} />
-            </Switch>
+  return (
+    <>
+      <Grommet theme={theme}>
+        <AppBar>
+          <Box>
+            <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
+              MyNdex
+            </Heading></Link>
+            The Vision to See What Others Cannot
           </Box>
-          <Footer height='large' background='brand' />
-        </Grommet>
-      </>
-    );
-  // }
+          <Box direction='row'>
+            {showLinks()}
+          </Box>
+        </AppBar>
+        <Box pad="large" height="95vh">
+          <Switch>
+            <Route path='/add' component={AddIndex} />
+            <Route path='/dashboard' component={Dashboard} />
+            <Route path='/' component={Home} />
+          </Switch>
+        </Box>
+        <Footer height='large' background='brand' />
+      </Grommet>
+    </>
+  );
 }
 
 export default App;
