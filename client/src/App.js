@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { Route, Switch, Link, useHistory } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box, Footer, Button } from 'grommet';
-import { Logout, BarChart, AddCircle, Google } from 'grommet-icons';
+import { Logout, BarChart, AddCircle, Google, Home } from 'grommet-icons';
 import AppBar from './components/AppBar';
-import Home from './pages/Home';
+import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
 import UserModel from './models/user';
@@ -43,18 +43,21 @@ const App = () => {
     if (user) {
       return(
         <>
-          <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
-          <Link to={`/add`}><Button icon={<AddCircle />} /></Link>
-          <Link to={`/`}><Button icon={<Home />} /></Link>
-          <GoogleLogout
+          <div className="nav-link"><Link to={`/dashboard`}><Button icon={<BarChart />} /><p>View</p></Link></div>
+          <div className="nav-link"><Link to={`/add`}><Button icon={<AddCircle />} /><p>Create</p></Link></div>
+          <div className="nav-link"><Link to={`/`}><Button icon={<Home />} /><p>Home</p></Link></div>
+          <div className="nav-link"><GoogleLogout
             clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
             buttonText='Logout'
             onLogoutSuccess={logOut}
             onFailure={() => console.log('logout failed!')}
             render={renderProps => (
-              <Logout onClick={renderProps.onClick} disabled={renderProps.disabled} />
+              <>
+                <Button icon={<Logout />} onClick={renderProps.onClick} disabled={renderProps.disabled} />
+                <p>Log Out</p>
+              </>
             )}
-          />
+          /></div>
         </>
       )
     }
@@ -67,7 +70,10 @@ const App = () => {
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
         render={renderProps => (
-          <Google onClick={renderProps.onClick} disabled={renderProps.disabled} />
+          <>
+            <Google onClick={renderProps.onClick} disabled={renderProps.disabled} />
+            <p>Sign In</p>
+          </>
         )}
       />
     )
@@ -91,7 +97,7 @@ const App = () => {
           <Switch>
             <Route path='/add' component={AddIndex} />
             <Route path='/dashboard' component={Dashboard} />
-            <Route path='/' component={Home} />
+            <Route path='/' component={MyndexHome} />
           </Switch>
         </Box>
         <Footer height='large' background='brand' />
