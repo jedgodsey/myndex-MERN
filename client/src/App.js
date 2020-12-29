@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Route, Switch, Link } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box, Footer, Button } from 'grommet';
@@ -19,27 +19,32 @@ const theme = {
   },
 };
 
-class App extends React.Component {
-  state = {
-    isLoggedIn: false
-  }
+// class App extends React.Component {
+//   state = {
+//     isLoggedIn: false
+//   }
+const App = () => {
+
+  const [user, setUser] = useState(false)
   
-  responseGoogle = (response) => {
+  const responseGoogle = (response) => {
     console.log('whole response: ', response)
     let vitalInfo = response.profileObj;
     vitalInfo.tokenObj = response.tokenObj
     UserModel.test(vitalInfo)
     // UserModel.create(vitalInfo)
-    this.setState({isLoggedIn: true})
+    // this.setState({isLoggedIn: true})
+    setUser(true)
   }
 
-  logOut = () => {
-    this.setState({isLoggedIn: false})
+  const logOut = () => {
+    // this.setState({isLoggedIn: false})
+    setUser(false)
     console.log('logout successful')
   }
 
-  showLinks = () => {
-    if (this.state.isLoggedIn) {
+  const showLinks = () => {
+    if (user) {
       return(
         <>
           <Link to={`/dashboard`}><Button icon={<BarChart />} /></Link>
@@ -48,7 +53,7 @@ class App extends React.Component {
           <GoogleLogout
             clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
             buttonText='Logout'
-            onLogoutSuccess={this.logOut}
+            onLogoutSuccess={logOut}
             onFailure={() => console.log('logout failed!')}
             // ux_mode='redirect'
             // redirectUri={'/'}
@@ -63,7 +68,7 @@ class App extends React.Component {
       <GoogleLogin
         clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
         buttonText='Login'
-        onSuccess={this.responseGoogle}
+        onSuccess={responseGoogle}
         onFailure={() => console.log('login fail')}
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
@@ -76,7 +81,7 @@ class App extends React.Component {
     )
   }
 
-  render() {
+  // render() {
     return (
       <>
         <Grommet theme={theme}>
@@ -88,7 +93,7 @@ class App extends React.Component {
               The Vision to See What Others Cannot
             </Box>
             <Box direction='row'>
-              {this.showLinks()}
+              {showLinks()}
             </Box>
           </AppBar>
           <Box pad="large" height="95vh">
@@ -102,7 +107,7 @@ class App extends React.Component {
         </Grommet>
       </>
     );
-  }
+  // }
 }
 
 export default App;
