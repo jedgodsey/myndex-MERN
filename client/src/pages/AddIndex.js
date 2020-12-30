@@ -34,12 +34,12 @@ const AddIndex = () => {
     setList([])
   }
 
-  const addIndex = async (event) => {
-    await MyndexModel.create({
+  const addIndex = (event) => {
+    MyndexModel.create({
       indexName: name,
       holdings: selections
     })
-    history.push("/dashboard")
+    setTimeout(() => history.push("/dashboard"), 500);
   }
 
   //------------------grommet functions--------------------
