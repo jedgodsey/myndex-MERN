@@ -29,8 +29,8 @@ class Rich extends React.Component {
       levels.unshift(points[i].value[1].toPrecision(3))
     }
     let zones = []
-    for (let i = 1; i < points.length; i += 30) {
-      zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
+    for (let i = 1; i < points.length; i += 21) {
+      zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'short' }))
     }
     this.setState({
       data: points,

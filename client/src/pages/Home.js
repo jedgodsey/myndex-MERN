@@ -1,14 +1,14 @@
 import React from 'react';
 import { Box } from 'grommet';
-// import AuthBox from '../components/AuthBox';
+import Elevator from '../components/Elevator';
 import Rich from '../components/Rich';
 
 class Home extends React.Component {
   render() {
     return(
-      <Box direction="row-responsive" gap="large">
+      <Box direction="row" wrap="true" justify="around">
         <Rich />
-        {/* <AuthBox /> */}
+        <Elevator />
       </Box>
     )
   }

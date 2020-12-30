@@ -14,8 +14,6 @@ class SmallRich extends React.Component {
   }
 
   componentDidMount() {
-    // this.getData('CRM')
-    // ['LYFT', 'MSFT', 'NKLA', 'ORCL', 'PLTR']
     this.run(this.props.holdings)
   }
 
@@ -26,7 +24,7 @@ class SmallRich extends React.Component {
     let maxX = Math.max(...points.map(item => item.value[0]))
     let minY = Math.min(...points.map(item => item.value[1]))
     let maxY = Math.max(...points.map(item => item.value[1]))
-    //--------------------- below
+    
     let levels = []
     for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
       levels.unshift(points[i].value[1].toPrecision(3))
@@ -57,9 +55,6 @@ class SmallRich extends React.Component {
         allStats.push(res)
       })
     }
-
-    // console.log('allStats.length: ', allStats.length)
-    // console.log('allStats[0]: ', allStats[0])
    
     let dates = []
         for (let m = 0; m < allStats[0].length; m++) { // figure out allStats[0].length
