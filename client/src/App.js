@@ -8,6 +8,7 @@ import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
 import UserModel from './models/user';
+require('dotenv').config()
 
 const theme = {
   global: {
