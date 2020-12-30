@@ -67,7 +67,7 @@ const App = () => {
         clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
         buttonText='Login'
         onSuccess={responseGoogle}
-        onFailure={() => console.log('login fail')}
+        onFailure={failure => console.log('login fail: ', failure)}
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
         render={renderProps => (
