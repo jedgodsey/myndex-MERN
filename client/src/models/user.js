@@ -29,17 +29,6 @@ class UserModel {
       .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
   }
 
-  static test(newUser) {
-    return axios({
-      method: 'POST',
-      data: newUser,
-      withCredentials: true,
-      url: 'http://localhost:4000/login'
-    })
-      // .then(res => console.log(res.status == 200)) //res.json())
-      // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
-  }
-
   static login(newUser) {
     return fetch(url, {
       method: 'POST',
@@ -90,46 +79,3 @@ class UserModel {
 }
 
 export default UserModel;
-
-/* {"data":{
-    "user":{
-      "_id":"5fe13bc7ba36201af2add6b9",
-      "googleId":"117870007923179936562",
-      "imageUrl":"https://lh3.googleusercontent.com/a-/AOh14Gg6Yy9C0nWjmNvm-J-WEIsI9k8duKXvkA3An7n4=s96-c",
-      "email":"jed.godsey@gmail.com",
-      "name":"Jed Godsey",
-      "givenName":"Jed",
-      "__v":0
-    }
-  },
-  "status":200,
-  "statusText":"OK",
-  "headers":{
-    "content-length":"256",
-    "content-type":"application/json; charset=utf-8"
-  },
-  "config":{
-    "url":"http://localhost:4000/users",
-    "method":"post",
-    "data":"{
-      \"googleId\":\"117870007923179936562\",
-      \"imageUrl\":\"https://lh3.googleusercontent.com/a-/AOh14Gg6Yy9C0nWjmNvm-J-WEIsI9k8duKXvkA3An7n4=s96-c\",
-      \"email\":\"jed.godsey@gmail.com\",
-      \"name\":\"Jed Godsey\",
-      \"givenName\":\"Jed\",
-      \"familyName\":\"Godsey\"
-    }",
-      "headers":{
-        "Accept":"application/json, text/plain, *\/*",
-        "Content-Type":"application/json;charset=utf-8"
-      },
-      "transformRequest":[null],
-      "transformResponse":[null],
-      "timeout":0,
-      "withCredentials":true,
-      "xsrfCookieName":"XSRF-TOKEN",
-      "xsrfHeaderName":"X-XSRF-TOKEN",
-      "maxContentLength":-1,
-      "maxBodyLength":-1},
-      "request":{}
-    } */

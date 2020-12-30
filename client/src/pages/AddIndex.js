@@ -34,8 +34,8 @@ const AddIndex = () => {
     setList([])
   }
 
-  const addIndex = (event) => {
-    MyndexModel.create({
+  const addIndex = async (event) => {
+    await MyndexModel.create({
       indexName: name,
       holdings: selections
     })
