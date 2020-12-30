@@ -39,8 +39,26 @@ app.post('/login', async (req, res) => {
     console.error('failed login with google')
   }
   console.log('google signin successful')
-
-  res.json({ status: 'okay'})
+  db.User.findOne({email: req.body.email})
+  .then(foundUser => {
+    if (foundUser) {
+      db.User.findByIdAndUpdate(foundUser.id, req.body)
+        .then(updatedUser => res.json({user: updatedUser}))
+        .catch(err => {
+          console.log('error in update user: ', err)
+          res.json({Error: 'unable to update data'})
+        })
+    } else {
+      db.User.create(req.body)
+        .then(newUser => {
+          res.json({user: newUser})
+        })
+        .catch(err => {
+          console.log('error in create user: ', err)
+          res.json({Error: 'unable to create data'})
+        })
+    }
+  })
 })
 
 async function verifyGoogleLogin(token) {

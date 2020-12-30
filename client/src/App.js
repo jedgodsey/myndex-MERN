@@ -7,8 +7,7 @@ import AppBar from './components/AppBar';
 import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
-import UserModel from './models/user';
-require('dotenv').config()
+import AuthModel from './models/auth';
 
 const theme = {
   global: {
@@ -29,7 +28,7 @@ const App = () => {
     console.log('whole response: ', response)
     let vitalInfo = response.profileObj;
     vitalInfo.tokenObj = response.tokenObj
-    UserModel.test(vitalInfo)
+    AuthModel.test(vitalInfo)
     setUser(true)
     history.push("/dashboard")
   }
