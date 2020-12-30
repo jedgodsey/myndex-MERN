@@ -43,21 +43,21 @@ const App = () => {
     if (user) {
       return(
         <>
-          <div className="nav-link"><Link to={`/dashboard`}><Button icon={<BarChart />} /><p>View</p></Link></div>
-          <div className="nav-link"><Link to={`/add`}><Button icon={<AddCircle />} /><p>Create</p></Link></div>
-          <div className="nav-link"><Link to={`/`}><Button icon={<Home />} /><p>Home</p></Link></div>
-          <div className="nav-link"><GoogleLogout
+          <div className="nav-link"><Link to={`/dashboard`}><Button icon={<BarChart />} /><div className="nav-title">View</div></Link></div>
+          <div className="nav-link"><Link to={`/add`}><Button icon={<AddCircle />} /><div className="nav-title">Create</div></Link></div>
+          <div className="nav-link"><Link to={`/`}><Button icon={<Home />} /><div className="nav-title">Home</div></Link></div>
+          <GoogleLogout
             clientId='596122570478-46p3hq34dbpo5vb9vgdli4su95jpbjrd.apps.googleusercontent.com'
             buttonText='Logout'
             onLogoutSuccess={logOut}
             onFailure={() => console.log('logout failed!')}
             render={renderProps => (
-              <>
-                <Button icon={<Logout />} onClick={renderProps.onClick} disabled={renderProps.disabled} />
-                <p>Log Out</p>
-              </>
+              <div className="nav-link" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+                <Button icon={<Logout />} />
+                <div className="nav-title">Log Out</div>
+              </div>
             )}
-          /></div>
+          />
         </>
       )
     }
@@ -70,10 +70,10 @@ const App = () => {
         cookiePolicy={'single_host_origin'}
         isSignedIn={true}
         render={renderProps => (
-          <>
-            <Google onClick={renderProps.onClick} disabled={renderProps.disabled} />
-            <p>Sign In</p>
-          </>
+          <div className="nav-link" onClick={renderProps.onClick} disabled={renderProps.disabled}>
+            <Google />
+            <div className="nav-title">Sign In</div>
+          </div>
         )}
       />
     )

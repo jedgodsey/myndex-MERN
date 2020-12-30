@@ -15,7 +15,7 @@ class Dashboard extends React.Component {
   }
   render() {
     return(
-      <Box direction="row" /* wrap="true" flex="true"*/ >
+      <Box direction="row" alignSelf="center" wrap="true" /*flex="true"*/ >
         {this.state.indices && this.state.indices.map((item, i) => <IndexCard index={item} key={i} />)}
       </Box>
     )
