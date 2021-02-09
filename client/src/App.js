@@ -3,6 +3,7 @@ import { Route, Switch, Link, useHistory } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Heading, Box, Footer, Button } from 'grommet';
 import { Logout, BarChart, AddCircle, Google, Home } from 'grommet-icons';
+import logogreen from './images/logo-full-green.svg';
 import AppBar from './components/AppBar';
 import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -84,10 +85,7 @@ const App = () => {
       <Grommet theme={theme}>
         <AppBar>
           <Box>
-            <Link to={`/`}><Heading level='3' margin='none' color='accent-1'>
-              MyNdex
-            </Heading></Link>
-            The Vision to See What Others Cannot
+            <Link to={`/`}>{logogreen}</Link>
           </Box>
           <Box direction='row'>
             {showLinks()}
