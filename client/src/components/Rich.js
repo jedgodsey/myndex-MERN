@@ -74,9 +74,8 @@ class Rich extends React.Component {
       overflow: true,
     };
     return (
-      <Card height="817px" width="xlarge" background="light-1" elevation="medium">
-        <Heading level='2' margin='medium' pad='medium'>Chart of the Day:</Heading>
-        <Heading level='3' margin='medium' pad='medium'>Salesforce, Inc. (CRM)</Heading>
+      <Card width="xlarge" background="light-1" elevation="medium">
+        <Heading level='2' margin='medium' pad='medium'>Chart of the Day: Salesforce, Inc. (CRM)</Heading>
         <Box align="center" pad="large">
           <Box
             direction="row"

@@ -21,3 +21,8 @@ a:link, a:visited {
     height: 80px;
     width: auto;
 }
+
+#footer-logo {
+    height: 80%;
+    width: auto;
+}

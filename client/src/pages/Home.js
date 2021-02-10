@@ -6,7 +6,7 @@ import Rich from '../components/Rich';
 class Home extends React.Component {
   render() {
     return(
-      <Box direction="row" wrap="true" justify="around">
+      <Box align="center" gap="large">
         <Rich />
         <Elevator />
       </Box>
