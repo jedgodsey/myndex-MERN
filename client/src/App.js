@@ -4,7 +4,7 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Grommet, Box, Footer, Button } from 'grommet';
 import { Logout, BarChart, AddCircle, Google, Home } from 'grommet-icons';
 import icongreen from './assets/logo-icon-green.svg';
-import logogreen from './assets/logo-full-white.svg';
+import logogreen from './assets/logo-full-green.svg';
 import AppBar from './components/AppBar';
 import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
