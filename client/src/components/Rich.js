@@ -9,11 +9,56 @@ class Rich extends React.Component {
     yAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     xAxis: ['alpha', 'bravo', 'charlie', 'delta'],
     data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [60, 10]},],
-    bounds: [[0, 100], [0, 100]]
+    bounds: [[0, 100], [0, 100]],
+    stock: {
+      company: "Acme, Inc.",
+      symbol: "AAPL"
+    }
   }
 
+  rotation = () => {
+    let securities = [
+      {
+        company: "Salesforce, Inc.",
+        symbol: "CRM"
+      },
+      {
+        company: "Alphabet, Inc. Class C",
+        symbol: "GOOG"
+      },
+      {
+        company: "Facebook, Inc.",
+        symbol: "FB"
+      },
+      {
+        company: "Visa, Inc.",
+        symbol: "V"
+      },
+      {
+        company: "Chevron Corporation",
+        symbol: "CVX"
+      },
+      {
+        company: "Adobe, Inc.",
+        symbol: "ADBE"
+      },
+      {
+        company: "Oracle Corporation",
+        symbol: "ORCL"
+      },
+    ]
+    let pick = securities[Math.floor(Math.random() * securities.length)]
+    this.setState({
+      stock: pick
+    })
+  }
+
+
+
   componentDidMount() {
-    this.getData('CRM')
+    this.rotation()
+    console.log("object: ", this.state.stock)
+    this.getData(this.state.stock.symbol)
   }
 
   getData = async (ticker) => {
@@ -75,7 +120,7 @@ class Rich extends React.Component {
     };
     return (
       <Card width="xlarge" background="light-1" elevation="medium">
-        <Heading level='2' margin='medium' pad='medium'>Chart of the Day: Salesforce, Inc. (CRM)</Heading>
+        <Heading level='2' margin='medium' pad='medium'>Chart of the Day: {this.state.stock.company} ({this.state.stock.symbol})</Heading>
         <Box align="center" pad="large">
           <Box
             direction="row"
