@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Route, Switch, Link, useHistory } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import { Grommet, Heading, Box, Footer, Button } from 'grommet';
+import { Grommet, Box, Footer, Button } from 'grommet';
 import { Logout, BarChart, AddCircle, Google, Home } from 'grommet-icons';
-import logogreen from './images/logo-full-green.svg';
+import logogreen from './assets/logo-full-green.svg';
 import AppBar from './components/AppBar';
 import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
@@ -85,7 +85,7 @@ const App = () => {
       <Grommet theme={theme}>
         <AppBar>
           <Box>
-            <Link to={`/`}>{logogreen}</Link>
+            <Link to={`/`}><img src={logogreen} id="header-logo" /></Link>
           </Box>
           <Box direction='row'>
             {showLinks()}
