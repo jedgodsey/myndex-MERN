@@ -28,8 +28,8 @@ class Tradier {
     return test;
   }
 
-  static tradierHistory(ticker) {
-    let history = axios.get(`https://sandbox.tradier.com/v1/markets/history?symbol=${ticker}`, {
+  static tradierHistory(ticker, open) {
+    let history = axios.get(`https://sandbox.tradier.com/v1/markets/history?symbol=${ticker}&start=${open}`, {
       headers: {
         'Authorization': `Bearer ${key}`,
         'Accept': 'application/json'

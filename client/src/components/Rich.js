@@ -62,7 +62,12 @@ class Rich extends React.Component {
   }
 
   getData = async (ticker) => {
-    let res = await Tradier.tradierHistory(ticker)
+    let begin = (Date.now() - (1000 * 3600 * 24 * 365))
+    let start = new Date(begin)
+    let open = start.getFullYear() + "-" + ('0' + (start.getMonth()+1)).slice(-2) + "-" + ('0' + start.getDate()).slice(-2)
+    console.log("your ticker: ", ticker)
+    console.log("your state: ", this.state.stock)
+    let res = await Tradier.tradierHistory(ticker, open)
     let points = res.data.history.day.map(item => ({"value": [new Date(item.date).getTime(), item.close]}))
     let minX = Math.min(...points.map(item => item.value[0]))
     let maxX = Math.max(...points.map(item => item.value[0]))
@@ -83,6 +88,7 @@ class Rich extends React.Component {
       yAxis: levels,
       xAxis: zones
     })
+    console.log("late state: ", this.state.stock)
   }
 
   labelY = () => {
@@ -121,6 +127,7 @@ class Rich extends React.Component {
     return (
       <Card width="xlarge" background="light-1" elevation="medium">
         <Heading level='2' margin='medium' pad='medium'>Chart of the Day: {this.state.stock.company} ({this.state.stock.symbol})</Heading>
+        {console.log("in text: ", this.state.stock)}
         <Box align="center" pad="large">
           <Box
             direction="row"
