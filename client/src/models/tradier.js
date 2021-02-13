@@ -4,7 +4,6 @@ const key = 'ZPl1aY9QugUQqjaw33tpGu5v9iPZ'
 
 class Tradier {
   static populate(chars) {
-    console.log('here')
     let tickers = axios.get(`https://sandbox.tradier.com/v1/markets/search?q=${chars}&indexes=false`, {
       headers: {
         'Authorization': `Bearer ${key}`,

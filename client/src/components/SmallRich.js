@@ -17,37 +17,42 @@ class SmallRich extends React.Component {
     this.run(this.props.holdings)
   }
 
-  getData = async (ticker) => {
-    console.log('getting')
-    let res = await Tradier.tradierHistory(ticker)
-    let points = res.data.history.day.map(item => ({"value": [new Date(item.date).getTime(), item.close]}))
-    let minX = Math.min(...points.map(item => item.value[0]))
-    let maxX = Math.max(...points.map(item => item.value[0]))
-    let minY = Math.min(...points.map(item => item.value[1]))
-    let maxY = Math.max(...points.map(item => item.value[1]))
+  // getData = async (ticker) => {
+  //   console.log('getting')
+  //   let res = await Tradier.tradierHistory(ticker)
+  //   let points = res.data.history.day.map(item => ({"value": [new Date(item.date).getTime(), item.close]}))
+  //   let minX = Math.min(...points.map(item => item.value[0]))
+  //   let maxX = Math.max(...points.map(item => item.value[0]))
+  //   let minY = Math.min(...points.map(item => item.value[1]))
+  //   let maxY = Math.max(...points.map(item => item.value[1]))
     
-    let levels = []
-    for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
-      levels.unshift(points[i].value[1].toPrecision(3))
-    }
-    let zones = []
-    for (let i = 1; i < points.length; i += 30) {
-      zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
-    }
-    this.setState({
-      data: points,
-      bounds: [[minX, maxX], [minY, maxY]],
-      yAxis: levels,
-      xAxis: zones
-    })
-  }
+  //   let levels = []
+  //   // for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
+  //   //   levels.unshift(points[i].value[1].toPrecision(3))
+  //   // }
+  //   for (let i = minY; i <= maxY; i += (maxY - minY) / 5) {
+  //     levels.unshift(i.toPrecision(3))
+  //     console.log("levels: ", levels)
+  //   }
+
+  //   let zones = []
+  //   for (let i = 1; i < points.length; i += 30) {
+  //     zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
+  //   }
+  //   this.setState({
+  //     data: points,
+  //     bounds: [[minX, maxX], [minY, maxY]],
+  //     yAxis: levels,
+  //     xAxis: zones
+  //   })
+  // }
 
   grab = async (stock) => {
     let begin = (Date.now() - (1000 * 3600 * 24 * 365))
     let start = new Date(begin)
     let open = start.getFullYear() + "-" + ('0' + (start.getMonth()+1)).slice(-2) + "-" + ('0' + start.getDate()).slice(-2)
     let response = await Tradier.tradierHistory(stock, open)
-    let array = response.data.history.day.slice(-20).map(item => [item.date, item.close]) // change back to -30
+    let array = response.data.history.day.slice(-10).map(item => [item.date, item.close]) // change back to -30
     return Promise.all(array).then(res => res)
   }
 
@@ -73,9 +78,7 @@ class SmallRich extends React.Component {
       for (let k = 0; k < allStats.length; k++) { //stocks
         day += allStats[k][j][1]
         calendar = allStats[k][j][0]
-        // if (k === 0) days.push(allStats[k][j][0])
       }
-      // console.log(day)
       averages.push([calendar, day / allStats.length])
     }
 
@@ -87,12 +90,14 @@ class SmallRich extends React.Component {
     let maxY = Math.max(...finished.map(item => item.value[1]))
 
     let levels = []
-    for (let i = Math.floor(finished.length * .2); i < finished.length; i += Math.floor(finished.length * .19)) {
-      levels.unshift(finished[i].value[1].toPrecision(3))
+    for (let i = minY; i <= maxY; i += (maxY - minY) / 5) {
+      levels.unshift(i.toPrecision(3))
     }
+
     let zones = []
-    for (let i = 1; i < finished.length; i++) {
-      zones.push(new Date(finished[i].value[0]).toLocaleString('default', { weekday: 'short' }).slice(0,1))
+    let oneDay = 1000 * 60 * 60 * 24
+    for (let i = 0; i < finished.length; i++) {
+      zones.push(new Date(finished[i].value[0] + oneDay).toLocaleString('default', { weekday: 'short' }).slice(0,2))
     }
 
     this.setState({

@@ -23,8 +23,8 @@ class Rich extends React.Component {
         symbol: "CRM"
       },
       {
-        company: "Alphabet, Inc. Class C",
-        symbol: "GOOG"
+        company: "Wells Fargo & Company",
+        symbol: "WFC"
       },
       {
         company: "Facebook, Inc.",
