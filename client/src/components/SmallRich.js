@@ -18,6 +18,7 @@ class SmallRich extends React.Component {
   }
 
   getData = async (ticker) => {
+    console.log('getting')
     let res = await Tradier.tradierHistory(ticker)
     let points = res.data.history.day.map(item => ({"value": [new Date(item.date).getTime(), item.close]}))
     let minX = Math.min(...points.map(item => item.value[0]))
@@ -42,8 +43,11 @@ class SmallRich extends React.Component {
   }
 
   grab = async (stock) => {
-    let response = await Tradier.tradierHistory(stock)
-    let array = response.data.history.day.slice(-30).map(item => [item.date, item.close]) // change back to -30
+    let begin = (Date.now() - (1000 * 3600 * 24 * 365))
+    let start = new Date(begin)
+    let open = start.getFullYear() + "-" + ('0' + (start.getMonth()+1)).slice(-2) + "-" + ('0' + start.getDate()).slice(-2)
+    let response = await Tradier.tradierHistory(stock, open)
+    let array = response.data.history.day.slice(-20).map(item => [item.date, item.close]) // change back to -30
     return Promise.all(array).then(res => res)
   }
 
