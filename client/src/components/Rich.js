@@ -76,9 +76,17 @@ class Rich extends React.Component {
     let maxY = Math.max(...points.map(item => item.value[1]))
 
     let levels = []
-    for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
-      levels.unshift(points[i].value[1].toPrecision(3))
+    // let dots = points.map(item => item[1]).sort((a, b) => a - b)
+    // for (let i = Math.floor(dots.length * .2); i < dots.length; i += Math.floor(dots.length * .19)) {
+    // // for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
+    //   console.log("i: ", i)
+    //   // levels.unshift(dots[i].toPrecision(3))
+    // }
+    for (let i = minY; i <= maxY; i += (maxY - minY) / 5) {
+      console.log("i: ", i)
+      levels.unshift(i.toPrecision(3))
     }
+
     let zones = []
     for (let i = 1; i < points.length; i += 21) {
       zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'short' }))
