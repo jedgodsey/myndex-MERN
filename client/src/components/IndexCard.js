@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Box, Card, CardHeader, CardBody, CardFooter, Button, Heading } from 'grommet';
+import { Box, Card, CardHeader, CardBody, CardFooter, Button, Heading, TextInput } from 'grommet';
 import { ShareOption } from 'grommet-icons';
 import MyndexModel from '../models/myndex';
 import Tradier from '../models/tradier';
@@ -12,6 +12,7 @@ class IndexCard extends React.Component {
   }
 
   componentDidMount() {
+    console.log("id: ", this.props.index._id)
     this.pullQuotes(this.props.index.holdings)
   }
 
@@ -37,6 +38,20 @@ class IndexCard extends React.Component {
     }
   }
 
+  shareIndex = () => {
+    navigator.clipboard.writeText(this.props.index._id)
+        /* Get the text field */
+    var copyText = document.getElementById(this.props.index._id);
+
+    /* Select the text field */
+    copyText.select();
+    copyText.setSelectionRange(0, 99999); /* For mobile devices */
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+    alert("Copied your link to the clipboard: " + this.props.index._id);
+  }
+
   render() {
     return(
       <Card height="500px" width="medium" background="light-1" elevation="medium" margin="medium" key={this.props.id}>
@@ -51,13 +66,14 @@ class IndexCard extends React.Component {
               <p>Today's gain: {this.state.performance}%</p>
             </Box>
             <Box direction='row'>
-              <Button icon={<ShareOption color="plain" />} hoverIndicator />
+              <Button icon={<ShareOption color="plain" />} hoverIndicator onClick={this.shareIndex} />
               <Link to={`/myndeces/${this.props.index._id}/edit`}>
                 <Button label='edit' />
               </Link>
               <Link to='/dashboard'>
                 <Button label='delete' onClick={() => this.onDelete(this.props.index._id)} />
               </Link>
+              <TextInput value={this.props.index._id} id={this.props.index._id} />
             </Box>
           </Box>
         </CardFooter>
