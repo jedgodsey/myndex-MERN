@@ -91,14 +91,14 @@ const App = () => {
             {showLinks()}
           </Box>
         </AppBar>
-        <Box pad="large" height="95vh">
-          <Switch>
-            <Route path='/add' component={AddIndex} />
-            <Route path='/myndeces/:id/edit' component={AddIndex} />
-            <Route path='/dashboard' component={Dashboard} />
-            <Route path='/' component={MyndexHome} />
-          </Switch>
-        </Box>
+          <Box pad="large" height={{min:"95vh"}}>
+            <Switch>
+              <Route path='/add' component={AddIndex} />
+              <Route path='/myndeces/:id/edit' component={AddIndex} />
+              <Route path='/dashboard' component={Dashboard} />
+              <Route path='/' component={MyndexHome} />
+            </Switch>
+          </Box>
         <Footer height="small" background='brand' align="center" alignContent="center" alignSelf="center" justify="center">        
           <img src={icongreen} id="footer-logo" />
         </Footer>
