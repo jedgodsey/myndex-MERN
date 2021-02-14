@@ -27,7 +27,6 @@ const App = () => {
   const [user, setUser] = useState(false)
   
   const responseGoogle = (response) => {
-    console.log('whole response: ', response)
     let vitalInfo = response.profileObj;
     vitalInfo.tokenObj = response.tokenObj
     AuthModel.test(vitalInfo)

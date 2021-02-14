@@ -55,6 +55,15 @@ const AddIndex = () => {
     setTimeout(() => history.push("/dashboard"), 500);
   }
 
+  const updateIndex = (event) => {
+    MyndexModel.update({
+      id,
+      indexName: name,
+      holdings: selections
+    })
+    setTimeout(() => history.push("/dashboard"), 500);
+  }
+
   //------------------grommet functions--------------------
   const onRemoveTag = index => {
     const newTags = [...selections];
@@ -124,7 +133,7 @@ const AddIndex = () => {
           </Box>
         </Box>
         <Box align="start" pad="medium">
-          <Button label="Create" onClick={addIndex} />
+          {id ? <Button label="Update" onClick={updateIndex} /> : <Button label="Create" onClick={addIndex} />}
         </Box>
       </Box>
     </Card>

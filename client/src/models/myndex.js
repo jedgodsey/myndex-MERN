@@ -7,7 +7,6 @@ if (process.env.NODE_ENV === 'production') {
 
 class MyndexModel {
   static all() {
-    console.log('in myndexmodel all')
     return fetch(url, {credentials: 'include'})
       .then(res => res.json())
       .catch(err => {
@@ -47,7 +46,7 @@ class MyndexModel {
         console.log('error fetching data in MyndexModel.update: ', err)
         return {message: 'error in update'};
       })
-      .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
+      .then(res => window.location.href = '/dashboard')
   }
 
   static delete(id) {
