@@ -95,6 +95,7 @@ const App = () => {
         <Box pad="large" height="95vh">
           <Switch>
             <Route path='/add' component={AddIndex} />
+            <Route path='/myndeces/:id/edit' component={AddIndex} />
             <Route path='/dashboard' component={Dashboard} />
             <Route path='/' component={MyndexHome} />
           </Switch>

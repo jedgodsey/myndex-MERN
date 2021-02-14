@@ -17,36 +17,6 @@ class SmallRich extends React.Component {
     this.run(this.props.holdings)
   }
 
-  // getData = async (ticker) => {
-  //   console.log('getting')
-  //   let res = await Tradier.tradierHistory(ticker)
-  //   let points = res.data.history.day.map(item => ({"value": [new Date(item.date).getTime(), item.close]}))
-  //   let minX = Math.min(...points.map(item => item.value[0]))
-  //   let maxX = Math.max(...points.map(item => item.value[0]))
-  //   let minY = Math.min(...points.map(item => item.value[1]))
-  //   let maxY = Math.max(...points.map(item => item.value[1]))
-    
-  //   let levels = []
-  //   // for (let i = Math.floor(points.length * .2); i < points.length; i += Math.floor(points.length * .19)) {
-  //   //   levels.unshift(points[i].value[1].toPrecision(3))
-  //   // }
-  //   for (let i = minY; i <= maxY; i += (maxY - minY) / 5) {
-  //     levels.unshift(i.toPrecision(3))
-  //     console.log("levels: ", levels)
-  //   }
-
-  //   let zones = []
-  //   for (let i = 1; i < points.length; i += 30) {
-  //     zones.push(new Date(points[i].value[0]).toLocaleString('default', { month: 'long' }))
-  //   }
-  //   this.setState({
-  //     data: points,
-  //     bounds: [[minX, maxX], [minY, maxY]],
-  //     yAxis: levels,
-  //     xAxis: zones
-  //   })
-  // }
-
   grab = async (stock) => {
     let begin = (Date.now() - (1000 * 3600 * 24 * 365))
     let start = new Date(begin)

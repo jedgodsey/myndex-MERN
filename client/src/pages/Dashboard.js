@@ -10,6 +10,7 @@ class Dashboard extends React.Component {
 
   componentDidMount() {
     MyndexModel.all().then(data => {
+      console.log("that data: ", data)
       this.setState({indices: data.indices})
     })
   }

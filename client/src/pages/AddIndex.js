@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { Box, TextInput, Button, Text, Card } from "grommet";
 import { Search } from 'grommet-icons';
 import Tag from '../components/Tag';
@@ -8,10 +8,23 @@ import MyndexModel from '../models/myndex';
 
 const AddIndex = () => {
   const history = useHistory()
+  const { id } = useParams()
   const [query, setQuery] = useState('')
   const [list, setList] = useState([])
   const [selections, setSelections] = useState([])
-  const [name, setName] = useState([])
+  const [name, setName] = useState('')
+
+  const fill = () => {
+    if (id) {
+      MyndexModel.getOne(id)
+        .then(data => {
+          setName(data.index.indexName)
+          setSelections(data.index.holdings)
+        })
+    }
+  }
+
+  useEffect(() => fill(), [])
 
   useEffect(() => {
     if (query) Tradier.populate(query)

@@ -23,6 +23,17 @@ const show = (req, res) => {
     })
 };
 
+const edit = (req, res) => {
+  db.Myndex.findById(req.params.id)
+    .then(foundMyndex => {
+      res.json({index: foundMyndex})
+    })
+    .catch(err => {
+      console.log('error in show myndex: ', err)
+      res.json({Error: 'unable to get data'})
+    })
+};
+
 const create = (req, res) => {
   let freshIndex = req.body
   freshIndex.maker = utility.divideString(req.headers.cookie)
@@ -57,6 +68,7 @@ const destroy = (req, res) => {
 module.exports = {
   display,
   show,
+  edit,
   create,
   update,
   destroy,

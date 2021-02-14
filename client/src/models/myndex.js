@@ -32,14 +32,7 @@ class MyndexModel {
       body: JSON.stringify(newMyndex),
       credentials: 'include'
     })
-      // .then(res => console.log('status: ', res.status)) //window.location.href = '/dashboard')
-      // .then(res => res.status === 200 ? window.location.href = '/dashboard' : null)
       .then(res => window.location.href = '/dashboard')
-      // .then(res => res.json())
-      // .catch(err => {
-      //   console.log('error fetching data in MyndexModel.create: ', err)
-      //   return {message: 'error in create'};
-      // })
   }
 
   static update(updatedMyndex) {
