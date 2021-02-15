@@ -26,3 +26,9 @@ a:link, a:visited {
     height: 80%;
     width: auto;
 }
+
+.hidden {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import * as clipboard from "clipboard-polyfill/text";
 import { Box, Card, CardHeader, CardBody, CardFooter, Button, Heading, TextInput } from 'grommet';
 import { ShareOption } from 'grommet-icons';
 import MyndexModel from '../models/myndex';
@@ -39,17 +40,18 @@ class IndexCard extends React.Component {
   }
 
   shareIndex = () => {
-    navigator.clipboard.writeText(this.props.index._id)
-        /* Get the text field */
-    var copyText = document.getElementById(this.props.index._id);
-
-    /* Select the text field */
-    copyText.select();
-    copyText.setSelectionRange(0, 99999); /* For mobile devices */
-
-    /* Copy the text inside the text field */
-    document.execCommand("copy");
-    alert("Copied your link to the clipboard: " + this.props.index._id);
+    const el = document.createElement('textarea');
+    let currentAddress = window.location.href
+    let partOne = currentAddress.replace('dashboard', '')
+    el.value = partOne + this.props.index._id;
+    el.setAttribute('readonly', '');
+    el.style.position = 'absolute';
+    el.style.left = '-9999px';
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    alert(`Copied your link to the clipboard: ${el.value}`);
   }
 
   render() {
@@ -73,7 +75,7 @@ class IndexCard extends React.Component {
               <Link to='/dashboard'>
                 <Button label='delete' onClick={() => this.onDelete(this.props.index._id)} />
               </Link>
-              <TextInput value={this.props.index._id} id={this.props.index._id} />
+              {/* <TextInput value={this.props.index._id} id={this.props.index._id} /> */}
             </Box>
           </Box>
         </CardFooter>
