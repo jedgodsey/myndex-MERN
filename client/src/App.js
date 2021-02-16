@@ -9,6 +9,7 @@ import AppBar from './components/AppBar';
 import MyndexHome from './pages/Home';
 import Dashboard from './pages/Dashboard';
 import AddIndex from './pages/AddIndex';
+import Show from './pages/Show';
 import AuthModel from './models/auth';
 
 const theme = {
@@ -96,6 +97,7 @@ const App = () => {
               <Route path='/add' component={AddIndex} />
               <Route path='/myndeces/:id/edit' component={AddIndex} />
               <Route path='/dashboard' component={Dashboard} />
+              <Route path='/:id' component={Show} />
               <Route path='/' component={MyndexHome} />
             </Switch>
           </Box>

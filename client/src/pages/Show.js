@@ -1,10 +1,12 @@
 import React from 'react';
-import { Box, Chart, Stack, Text } from 'grommet';
+import { Card, Box, Chart, Stack, Text } from 'grommet';
 import Tradier from '../models/tradier'
+import MyndexModel from '../models/myndex';
 
 
 
-class SmallRich extends React.Component {
+class Show extends React.Component {
+
   state = {
     yAxis: [25, 50, 75, 100],
     xAxis: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
@@ -13,7 +15,10 @@ class SmallRich extends React.Component {
   }
 
   componentDidMount() {
-    this.run(this.props.holdings)
+    MyndexModel.getOne(this.props.match.params.id)
+      .then(data => {
+        this.run(data.index.holdings)
+      })
   }
 
   grab = async (stock) => {
@@ -75,6 +80,7 @@ class SmallRich extends React.Component {
       yAxis: levels,
       xAxis: zones
     })
+    console.log("made it to here")
   }
 
   labelY = () => {
@@ -110,14 +116,13 @@ class SmallRich extends React.Component {
       values:  this.state.data,
       overflow: true,
     };
-
-    // console.log(this.props)
     return (
-        <Box align="center" width='medium' height='small'>
+      <Card width="xlarge" background="light-1" elevation="medium">
+        <Box align="center" pad="large">
           <Box
             direction="row"
             justify="between"
-            width="medium"
+            width="large"
             margin={{ vertical: 'small' }}
           >
             {this.labelX()}
@@ -138,20 +143,21 @@ class SmallRich extends React.Component {
               type="line"
               round
               color={{ color: 'brand', opacity: 'strong' }}
-              thickness="hair"
-              animate
+              thickness="xsmall"
+              // animate
             />
           </Stack>
         </Box>
+      </Card>
     );
   }
 };
 
-SmallRich.story = {
+Show.story = {
   name: 'Animate',
   parameters: {
     chromatic: { disable: true },
   },
 };
 
-export default SmallRich;
+export default Show;

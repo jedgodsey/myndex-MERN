@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import * as clipboard from "clipboard-polyfill/text";
-import { Box, Card, CardHeader, CardBody, CardFooter, Button, Heading, TextInput } from 'grommet';
+import { Box, Card, CardHeader, CardBody, CardFooter, Button, Heading } from 'grommet';
 import { ShareOption } from 'grommet-icons';
 import MyndexModel from '../models/myndex';
 import Tradier from '../models/tradier';
@@ -13,7 +12,6 @@ class IndexCard extends React.Component {
   }
 
   componentDidMount() {
-    console.log("id: ", this.props.index._id)
     this.pullQuotes(this.props.index.holdings)
   }
 
@@ -75,7 +73,6 @@ class IndexCard extends React.Component {
               <Link to='/dashboard'>
                 <Button label='delete' onClick={() => this.onDelete(this.props.index._id)} />
               </Link>
-              {/* <TextInput value={this.props.index._id} id={this.props.index._id} /> */}
             </Box>
           </Box>
         </CardFooter>
