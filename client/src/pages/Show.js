@@ -40,7 +40,7 @@ class Show extends React.Component {
     }
    
     let dates = []
-        for (let m = 0; m < allStats[0].length; m++) { // figure out allStats[0].length
+        for (let m = 0; m < allStats[0].length; m++) {
       dates.push([allStats[0][m][0]])
     }
 
