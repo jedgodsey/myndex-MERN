@@ -24,7 +24,7 @@ const AddIndex = () => {
     }
   }
 
-  useEffect(() => fill(), [])
+  useEffect(() => fill())
 
   useEffect(() => {
     if (query) Tradier.populate(query)
