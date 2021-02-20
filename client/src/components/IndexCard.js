@@ -66,7 +66,7 @@ class IndexCard extends React.Component {
               <p>Today's gain: {this.state.performance}%</p>
             </Box>
             <Box direction='row'>
-              <Button icon={<ShareOption color="plain" />} hoverIndicator onClick={this.shareIndex} />
+              {/* <Button icon={<ShareOption color="plain" />} hoverIndicator onClick={this.shareIndex} /> */}
               <Link to={`/myndeces/${this.props.index._id}/edit`}>
                 <Button label='edit' />
               </Link>

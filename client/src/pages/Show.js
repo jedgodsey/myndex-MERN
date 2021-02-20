@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, Box, Chart, Stack, Text } from 'grommet';
+import { Card, Box, Chart, Stack, Text, Heading } from 'grommet';
 import Tradier from '../models/tradier'
 import MyndexModel from '../models/myndex';
 
@@ -11,7 +11,9 @@ class Show extends React.Component {
     yAxis: [25, 50, 75, 100],
     xAxis: ['S', 'M', 'T', 'W', 'Th', 'F', 'S'],
     data: [{"value": [0, 10]},{"value": [20, 30]},{"value": [30, 10]},{"value": [40, 50]},{"value": [50, 90]},{"value": [100, 10]},],
-    bounds: [[0, 100], [0, 100]]
+    bounds: [[0, 100], [0, 100]],
+    holdings: [],
+    name: ''
   }
 
   componentDidMount() {
@@ -19,6 +21,11 @@ class Show extends React.Component {
       .then(data => {
         this.run(data.index.holdings)
       })
+    console.log(this.props.match.params)
+    this.setState({
+      holdings: this.props.match.params.holdings,
+      name: this.props.match.params.name
+    })
   }
 
   grab = async (stock) => {
@@ -80,7 +87,6 @@ class Show extends React.Component {
       yAxis: levels,
       xAxis: zones
     })
-    console.log("made it to here")
   }
 
   labelY = () => {
@@ -111,44 +117,48 @@ class Show extends React.Component {
   }
   render() {
     const chartProps = {
-      size: { width: 'large', height: 'small' },
+      size: { width: 'large', height: 'large' },
       bounds: this.state.bounds,
       values:  this.state.data,
       overflow: true,
     };
     return (
-      <Card width="xlarge" background="light-1" elevation="medium">
-        <Box align="center" pad="large">
-          <Box
-            direction="row"
-            justify="between"
-            width="large"
-            margin={{ vertical: 'small' }}
-          >
-            {this.labelX()}
-          </Box>
-          <Stack guidingChild="last">
-            <Box fill justify="between">
-              {this.labelY()}
+      <Box align="center" gap="large">
+        <Card width="xlarge" background="light-1" elevation="medium">
+        <Heading level='2' margin='medium' pad='medium'>{this.state.name}</Heading>
+        <Heading level='3' margin='medium' pad='medium'>Components: {this.state.holdings}</Heading>
+          <Box align="center" pad="large">
+            <Box
+              direction="row"
+              justify="between"
+              width="large"
+              margin={{ vertical: 'small' }}
+            >
+              {this.labelX()}
             </Box>
-            <Chart
-              {...chartProps}
-              type="area"
-              color={{ color: 'accent-1', opacity: 'medium' }}
-              thickness="hair"
-              animate
-            />
-            <Chart
-              {...chartProps}
-              type="line"
-              round
-              color={{ color: 'brand', opacity: 'strong' }}
-              thickness="xsmall"
-              // animate
-            />
-          </Stack>
-        </Box>
-      </Card>
+            <Stack guidingChild="last">
+              <Box fill justify="between">
+                {this.labelY()}
+              </Box>
+              <Chart
+                {...chartProps}
+                type="area"
+                color={{ color: 'accent-1', opacity: 'medium' }}
+                thickness="hair"
+                animate
+              />
+              <Chart
+                {...chartProps}
+                type="line"
+                round
+                color={{ color: 'brand', opacity: 'strong' }}
+                thickness="xsmall"
+                // animate
+              />
+            </Stack>
+          </Box>
+        </Card>
+      </Box>
     );
   }
 };
