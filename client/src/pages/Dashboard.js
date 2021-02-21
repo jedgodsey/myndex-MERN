@@ -9,10 +9,19 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    MyndexModel.all().then(data => {
+    this.fill()
+  }
+
+  fill = async () => {
+    await MyndexModel.all().then(data => {
       this.setState({indices: data.indices})
     })
+    const { history } = this.props
+    if (this.state.indices.length === 0) {
+      history.push('/add')
+    }
   }
+
   render() {
     return(
       <Box direction="row" alignSelf="center" wrap="true">

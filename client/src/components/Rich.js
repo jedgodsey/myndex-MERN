@@ -77,7 +77,6 @@ class Rich extends React.Component {
 
     let levels = []
     for (let i = minY; i <= maxY; i += (maxY - minY) / 5) {
-      console.log("i: ", i)
       levels.unshift(i.toPrecision(3))
     }
 
